@@ -1,3 +1,5 @@
+import { images } from './images';
+
 export interface IndustryItem {
   id: string;
   slug: string;
@@ -5,6 +7,12 @@ export interface IndustryItem {
   tagline: string;
   description: string;
   icon: string;
+  image: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+  };
   challenges: string[];
   solutions: string[];
   keyStandards: string[];
@@ -23,6 +31,7 @@ export const industriesData: IndustryItem[] = [
     tagline: "Compact, high-density circuitry for the next generation of smart devices.",
     description: "From smart wearables and audio gadgets to home appliances, we deliver thin, multi-layer, and rigid-flex PCBs engineered for mass production and ergonomic form factors.",
     icon: "laptop",
+    image: images.industries.consumerElectronics,
     challenges: [
       "Extremely limited enclosure space requiring HDI and microvias",
       "Thermal management in fanless, sealed consumer enclosures",
@@ -53,6 +62,7 @@ export const industriesData: IndustryItem[] = [
     tagline: "Ruggedized circuit solutions built to withstand harsh factory environments.",
     description: "Heavy copper boards, conformal coating, and strict component screening designed for 24/7 reliability amidst vibration, electrical noise, and extreme operating temperatures.",
     icon: "cpu",
+    image: images.industries.industrialAutomation,
     challenges: [
       "High ambient operating temperatures, humidity, and chemical exposure",
       "Heavy current transients, inductive kickback, and electrical noise",
@@ -83,6 +93,7 @@ export const industriesData: IndustryItem[] = [
     tagline: "Ultra-low power RF circuit boards connecting modern Indonesia.",
     description: "Specialized low-loss RF layouts, impedance-controlled trace routing, and energy-efficient power architecture for connected sensors and cellular IoT nodes.",
     icon: "wifi",
+    image: images.industries.iot,
     challenges: [
       "Multi-year battery longevity demanding nanoamp sleep currents",
       "Antenna tuning and RF signal loss across compact board areas",
@@ -113,6 +124,7 @@ export const industriesData: IndustryItem[] = [
     tagline: "High-reliability PCB fabrication engineered for vehicular safety and power electronics.",
     description: "Mission-critical circuit boards built to withstand thermal shock, relentless vibration, and high current loads in automotive control units and electric vehicle systems.",
     icon: "car",
+    image: images.industries.automotive,
     challenges: [
       "Thermal cycling between -40°C and +125°C under engine bay hoods",
       "Zero-defect tolerance for safety-critical braking and steering systems",
@@ -143,6 +155,7 @@ export const industriesData: IndustryItem[] = [
     tagline: "High-frequency, low-loss PCBs powering Indonesia's 4G/5G digital infrastructure.",
     description: "High-speed backplanes, microwave transceiver boards, and optical network interfaces fabricated with low dielectric loss tangent substrates.",
     icon: "radio",
+    image: images.industries.telecommunications,
     challenges: [
       "High-frequency signal attenuation and insertion loss above 10 GHz",
       "Inter-pair and intra-pair skew across multi-gigabit differential lines",
@@ -173,6 +186,7 @@ export const industriesData: IndustryItem[] = [
     tagline: "Uncompromising precision and traceability for diagnostic and life-support hardware.",
     description: "Rigid and flex PCBs produced with full component lot traceability, cleanroom assembly, and zero-defect quality control for healthcare technologies.",
     icon: "heart-pulse",
+    image: images.industries.medical,
     challenges: [
       "Stringent patient safety standards and electrical isolation barriers",
       "Ultra-compact biocompatible form factors for wearable diagnostics",
@@ -203,6 +217,7 @@ export const industriesData: IndustryItem[] = [
     tagline: "High-efficiency power electronics driving green solar and energy storage systems.",
     description: "Heavy copper power boards, aluminum core LED substrates, and high-voltage DC-DC converters engineered for Indonesia's clean energy transition.",
     icon: "sun",
+    image: images.industries.renewableEnergy,
     challenges: [
       "High continuous DC voltages (up to 1500V) in solar string inverters",
       "Massive thermal dissipation required from high-power IGBT/MOSFET switches",

@@ -10,29 +10,28 @@ const { step, title, description, isLast = false } = Astro.props;
 ---
 
 <div class="relative flex-1 flex flex-col items-start group">
-  <div class="flex items-center w-full mb-4">
-    <!-- Number Circle matching ui.png -->
-    <div class="w-10 h-10 rounded-full bg-brand-500 text-white font-bold text-sm flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-110 transition-transform duration-200 z-10">
-      {step}
+  <div class="flex items-center w-full mb-3">
+    <!-- Clean Minimalist Monospace Step Indicator with Green Accent -->
+    <div class="px-2.5 py-1 rounded-sm border border-border bg-white text-dark font-mono font-bold text-xs flex items-center gap-1 group-hover:border-brand-500 transition-colors z-10">
+      <span class="text-brand-600 font-bold">0{step}</span>
+      <span class="text-secondary/40">//</span>
     </div>
 
-    <!-- Connecting line with arrow to next step -->
+    <!-- Fine hairline connection line with subtle green highlight on hover -->
     {!isLast && (
-      <div class="hidden lg:flex flex-1 items-center px-3">
-        <div class="h-0.5 w-full border-t-2 border-dashed border-border group-hover:border-brand-300 transition-colors" />
-        <svg class="w-3.5 h-3.5 text-secondary/60 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
+      <div class="hidden lg:flex flex-1 items-center px-2">
+        <div class="h-0.5 w-full bg-border group-hover:bg-brand-500 transition-colors" />
+        <span class="text-secondary/50 group-hover:text-brand-600 -ml-1 text-xs transition-colors">→</span>
       </div>
     )}
   </div>
 
   <!-- Content -->
   <div>
-    <h3 class="text-sm sm:text-base font-bold text-dark group-hover:text-brand-600 transition-colors">
+    <h3 class="text-sm sm:text-base font-bold font-display text-dark group-hover:text-brand-600 transition-colors">
       {title}
     </h3>
-    <p class="text-xs text-secondary leading-relaxed mt-1.5 max-w-xs">
+    <p class="text-xs text-secondary leading-relaxed mt-1 max-w-xs">
       {description}
     </p>
   </div>

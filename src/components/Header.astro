@@ -9,17 +9,17 @@ const currentPath = Astro.url.pathname;
 
 <header
   id="main-header"
-  class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-border/80 transition-all duration-300"
+  class="sticky top-0 z-40 w-full bg-surface/95 backdrop-blur-md border-b border-border transition-all duration-200"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <!-- Brand Logo -->
     <a href="/" class="flex items-center gap-3 group focus:outline-none" aria-label="PCB Indonesia Home">
       <img
         src="/pcb-indonesia-logo.svg"
-        alt="PCB Indonesia — Connect Ideas. Build Tomorrow."
-        class="h-10 w-auto object-contain transition-transform group-hover:scale-[1.02]"
-        width="180"
-        height="42"
+        alt="PCB Indonesia"
+        class="h-8 sm:h-9 w-auto object-contain"
+        width="160"
+        height="36"
       />
     </a>
 
@@ -32,19 +32,19 @@ const currentPath = Astro.url.pathname;
         const hasChildren = item.children && item.children.length > 0;
 
         return (
-          <div class="relative group py-6">
+          <div class="relative group py-5">
             <a
               href={item.href}
               class:list={[
-                "relative text-sm font-medium transition-colors flex items-center gap-1",
-                isCurrent ? "text-dark font-semibold" : "text-dark/80 hover:text-dark"
+                "relative text-xs font-medium tracking-wide uppercase transition-colors flex items-center gap-1",
+                isCurrent ? "text-dark font-semibold" : "text-secondary hover:text-dark"
               ]}
               aria-current={isCurrent ? "page" : undefined}
             >
               <span>{item.label}</span>
               {hasChildren && (
-                <svg class="w-3.5 h-3.5 text-secondary group-hover:text-dark transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                <svg class="w-3 h-3 text-secondary group-hover:text-dark transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M19 9l-7 7-7-7" />
                 </svg>
               )}
               {isCurrent && (
@@ -54,11 +54,11 @@ const currentPath = Astro.url.pathname;
 
             {/* Dropdown Menu */}
             {hasChildren && (
-              <div class="absolute top-[64px] left-1/2 -translate-x-1/2 w-64 bg-white rounded-xl shadow-card-hover border border-border py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="absolute top-14 left-1/2 -translate-x-1/2 w-64 bg-white rounded-lg shadow-card border border-border py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
                 {item.children?.map((child) => (
                   <a
                     href={child.href}
-                    class="block px-4 py-2.5 hover:bg-surface transition-colors"
+                    class="block px-4 py-2 hover:bg-surface transition-colors"
                   >
                     <div class="text-xs font-semibold text-dark hover:text-brand-600 transition-colors">
                       {child.label}
@@ -83,10 +83,10 @@ const currentPath = Astro.url.pathname;
       <!-- Language Switcher Island -->
       <LanguageSwitcher client:idle />
 
-      <!-- Primary CTA: Get a Quote -->
+      <!-- Primary CTA: Get a Quote in Controlled PCB Green -->
       <a
         href="/quote"
-        class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-brand-500 hover:bg-brand-600 rounded-full shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5"
+        class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-white bg-brand-500 hover:bg-brand-600 rounded-sm border border-brand-600 transition-colors"
       >
         <span>Get a Quote</span>
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile Navigation Drawer -->
     <div class="flex items-center space-x-2 lg:hidden">
       <Search client:idle />
-      <MobileMenu currentPath={currentPath} client:load />
+      <MobileMenu client:load currentPath={currentPath} />
     </div>
   </div>
 </header>

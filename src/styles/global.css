@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,18 +8,25 @@
   :root {
     --brand-primary: #087F5B;
     --brand-primary-hover: #07694B;
-    --brand-dark: #101828;
-    --brand-bg: #F8FAF9;
+    --brand-deep: #0B5D46;
+    --brand-dark: #111513;
+    --brand-bg: #F7F7F5;
+    --brand-secondary: #EFEFEC;
     --brand-white: #FFFFFF;
-    --brand-gray: #667085;
-    --brand-border: #E4E7EC;
+    --brand-gray: #66706B;
+    --brand-border: #E5E5E2;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.025em;
   }
 
   html {
-    scroll-behavior: smooth;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    color: #101828;
-    background-color: #F8FAF9;
+    scroll-behavior: auto;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #111513;
+    background-color: #F7F7F5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -29,50 +36,71 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    background-color: #F7F7F5;
+    color: #111513;
   }
 
   ::selection {
-    background-color: #BBF7D0;
-    color: #065F44;
+    background-color: #E2ECE7;
+    color: #0B5D46;
   }
 }
 
-/* Custom Circuit Pattern Backgrounds */
+/* Subtle architectural patterns */
 .bg-circuit-pattern {
-  background-image: radial-gradient(rgba(8, 127, 91, 0.15) 1px, transparent 1px), radial-gradient(rgba(8, 127, 91, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(8, 127, 91, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
 }
 
 .bg-circuit-dark {
-  background-color: #0B3828;
+  background-color: #111513;
   background-image: 
-    linear-gradient(to right, rgba(8, 127, 91, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(8, 127, 91, 0.1) 1px, transparent 1px);
-  background-size: 32px 32px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-.font-script {
-  font-family: 'Caveat', cursive;
+.font-script, .font-editorial {
+  font-family: 'Caveat', cursive, system-ui;
+  letter-spacing: normal;
 }
 
-/* Custom Scrollbar */
+/* Subtle Brutalist Architectural Accents */
+.brutalist-line {
+  height: 2px;
+  background-color: var(--brand-primary);
+}
+
+.brutalist-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  background-color: #F2F7F4;
+  color: #07694B;
+  border: 1px solid #C2D9CF;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Restrained Minimal Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F8FAF9;
+  background: #F7F7F5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D0D5DD;
-  border-radius: 4px;
+  background: #D1D1CD;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #98A2B3;
+  background: #A0A09C;
 }
 
 /* Accessible focus ring */
@@ -83,6 +111,27 @@ textarea:focus-visible,
 select:focus-visible {
   outline: 2px solid #087F5B;
   outline-offset: 2px;
+}
+
+/* Lenis Smooth Scroll Configuration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

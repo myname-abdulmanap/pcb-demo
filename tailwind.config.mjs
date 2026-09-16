@@ -5,53 +5,55 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#F0FDF4',
-          100: '#DCFCE7',
-          200: '#BBF7D0',
-          300: '#86EFAC',
-          400: '#4ADE80',
-          500: '#087F5B', // Primary Green
+          50: '#F2F7F4',
+          100: '#E2ECE7',
+          200: '#C2D9CF',
+          300: '#94BCAC',
+          400: '#5C9A82',
+          500: '#087F5B', // Primary Green Accent
           600: '#07694B',
-          700: '#065F44',
-          800: '#044431',
-          900: '#022C20',
-          light: '#E6F4EA',
-          hover: '#099268',
+          700: '#0B5D46', // Deep Green
+          800: '#073F30',
+          900: '#04271E',
+          light: '#EBF3F0',
+          hover: '#07694B',
         },
         dark: {
-          DEFAULT: '#101828',
-          card: '#162033',
-          border: '#1F2D47',
-          muted: '#344054',
+          DEFAULT: '#111513', // Charcoal / Near-black
+          card: '#181E1B',
+          border: '#232A26',
+          muted: '#66706B',
         },
         surface: {
-          DEFAULT: '#F8FAF9',
+          DEFAULT: '#F7F7F5', // Warm natural off-white
+          secondary: '#EFEFEC', // Light warm gray
           white: '#FFFFFF',
           card: '#FFFFFF',
         },
         secondary: {
-          DEFAULT: '#667085',
-          light: '#98A2B3',
-          dark: '#475467',
+          DEFAULT: '#66706B', // Muted text
+          light: '#8F9994',
+          dark: '#3D4642',
         },
         border: {
-          DEFAULT: '#E4E7EC',
-          light: '#F2F4F7',
-          dark: '#D0D5DD',
+          DEFAULT: '#E5E5E2', // Crisp subtle border
+          light: '#EFEFEC',
+          dark: '#D1D1CD',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
         script: ['Caveat', 'Patrick Hand', 'cursive', 'system-ui'],
       },
       boxShadow: {
-        soft: '0 4px 20px -2px rgba(16, 24, 40, 0.05)',
-        card: '0 2px 12px rgba(16, 24, 40, 0.04), 0 1px 2px rgba(16, 24, 40, 0.02)',
-        'card-hover': '0 12px 30px -4px rgba(16, 24, 40, 0.08), 0 4px 10px rgba(16, 24, 40, 0.03)',
-        floating: '0 20px 40px -10px rgba(8, 127, 91, 0.15), 0 10px 20px rgba(16, 24, 40, 0.06)',
+        soft: '0 1px 3px rgba(17, 21, 19, 0.04)',
+        card: '0 1px 2px rgba(17, 21, 19, 0.03)',
+        'card-hover': '0 4px 12px rgba(17, 21, 19, 0.06)',
+        floating: '0 8px 24px -4px rgba(17, 21, 19, 0.08)',
       },
       borderRadius: {
-        'card': '12px',
+        card: '10px',
       },
     },
   },

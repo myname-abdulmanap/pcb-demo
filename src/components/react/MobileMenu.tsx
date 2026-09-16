@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 interface MobileMenuProps {
-  currentPath: string;
+  currentPath?: string;
 }
 
-export default function MobileMenu({ currentPath }: MobileMenuProps) {
+export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
@@ -62,47 +62,62 @@ export default function MobileMenu({ currentPath }: MobileMenuProps) {
 
   return (
     <div className="lg:hidden">
+      {/* Animated Hamburger / Close Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-dark hover:text-brand-600 focus:outline-none"
+        className="relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 p-2 text-dark hover:text-brand-600 focus:outline-none z-50 rounded-lg hover:bg-black/5 transition-colors"
         aria-label="Toggle Navigation Menu"
         aria-expanded={isOpen}
       >
-        {isOpen ? (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        )}
+        <span
+          className={`block h-0.5 w-6 bg-current rounded-full transition-all duration-300 ease-in-out ${
+            isOpen ? 'rotate-45 translate-y-2' : ''
+          }`}
+        />
+        <span
+          className={`block h-0.5 w-6 bg-current rounded-full transition-all duration-200 ease-in-out ${
+            isOpen ? 'opacity-0 scale-x-0' : 'opacity-100'
+          }`}
+        />
+        <span
+          className={`block h-0.5 w-6 bg-current rounded-full transition-all duration-300 ease-in-out ${
+            isOpen ? '-rotate-45 -translate-y-2' : ''
+          }`}
+        />
       </button>
 
       {/* Drawer Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 top-[72px] z-40 bg-black/40 backdrop-blur-sm transition-opacity"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      <div
+        className={`fixed inset-0 top-16 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-200 ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
 
       {/* Slide-out Menu Panel */}
       <div
-        className={`fixed top-[72px] right-0 bottom-0 w-4/5 max-w-sm bg-white z-50 shadow-2xl border-l border-border flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`fixed top-16 right-0 bottom-0 w-[85%] max-w-sm bg-white z-50 shadow-card border-l border-border flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           <nav className="flex flex-col space-y-1">
-            {navLinks.map((item) => {
+            {navLinks.map((item, index) => {
               const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
               const hasChildren = item.children && item.children.length > 0;
               const isSubmenuOpen = openSubmenu === item.label;
 
               return (
-                <div key={item.label} className="border-b border-border/40 pb-2">
+                <div
+                  key={item.label}
+                  className={`border-b border-border/40 pb-2 transition-all duration-300 ease-out ${
+                    isOpen
+                      ? 'opacity-100 translate-x-0'
+                      : 'opacity-0 translate-x-6'
+                  }`}
+                  style={{ transitionDelay: isOpen ? `${index * 45 + 50}ms` : `${(navLinks.length - index) * 20}ms` }}
+                >
                   <div className="flex items-center justify-between">
                     <a
                       href={item.href}
@@ -117,11 +132,11 @@ export default function MobileMenu({ currentPath }: MobileMenuProps) {
                       <button
                         type="button"
                         onClick={() => setOpenSubmenu(isSubmenuOpen ? null : item.label)}
-                        className="p-2 text-secondary hover:text-dark"
+                        className="p-2 text-secondary hover:text-dark transition-colors"
                         aria-label={`Toggle ${item.label} submenu`}
                       >
                         <svg
-                          className={`w-4 h-4 transition-transform ${isSubmenuOpen ? 'rotate-180' : ''}`}
+                          className={`w-4 h-4 transition-transform duration-200 ${isSubmenuOpen ? 'rotate-180 text-brand-600' : ''}`}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -133,13 +148,13 @@ export default function MobileMenu({ currentPath }: MobileMenuProps) {
                   </div>
 
                   {hasChildren && isSubmenuOpen && (
-                    <div className="pl-4 mt-1 space-y-2 border-l-2 border-brand-200">
+                    <div className="pl-4 mt-1 space-y-2 border-l-2 border-border animate-fade-in">
                       {item.children?.map((child) => (
                         <a
                           key={child.href}
                           href={child.href}
                           onClick={() => setIsOpen(false)}
-                          className="block py-1.5 text-sm text-secondary hover:text-brand-600 transition-colors"
+                          className="block py-1.5 text-xs font-medium text-secondary hover:text-brand-600 transition-colors"
                         >
                           {child.label}
                         </a>
@@ -152,12 +167,17 @@ export default function MobileMenu({ currentPath }: MobileMenuProps) {
           </nav>
         </div>
 
-        {/* Drawer Footer */}
-        <div className="p-6 bg-surface border-t border-border space-y-3">
+        {/* Drawer Footer with Staggered CTA */}
+        <div
+          className={`p-6 bg-surface border-t border-border space-y-3 transition-all duration-300 ease-out ${
+            isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+          style={{ transitionDelay: isOpen ? `${navLinks.length * 45 + 100}ms` : '0ms' }}
+        >
           <a
             href="/quote"
             onClick={() => setIsOpen(false)}
-            className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-brand-500 hover:bg-brand-600 text-white font-medium text-sm transition-all shadow-md shadow-brand-500/20"
+            className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-sm bg-brand-500 hover:bg-brand-600 text-white font-mono text-xs font-semibold uppercase tracking-wider transition-colors min-h-[44px] border border-brand-600"
           >
             <span>Get a Quote</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,8 +185,8 @@ export default function MobileMenu({ currentPath }: MobileMenuProps) {
             </svg>
           </a>
 
-          <div className="text-center text-xs text-secondary pt-2">
-            <span>Direct Support: +62 21 8934 7721</span>
+          <div className="text-center text-xs text-secondary pt-1">
+            <span>Direct Support: <a href="tel:+622189347721" className="font-semibold text-dark hover:underline">+62 21 8934 7721</a></span>
           </div>
         </div>
       </div>
