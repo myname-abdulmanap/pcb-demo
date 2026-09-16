@@ -73,5 +73,20 @@ const {
     </a>
 
     <slot />
+
+    <script>
+      import { applyTranslations, getStoredLanguage } from '../lib/i18n';
+      
+      const savedLang = getStoredLanguage();
+      if (savedLang === 'ID') {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => {
+            applyTranslations('ID');
+          });
+        } else {
+          applyTranslations('ID');
+        }
+      }
+    </script>
   </body>
 </html>

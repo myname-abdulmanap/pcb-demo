@@ -68,7 +68,7 @@ Wearable health sensors and foldable IoT peripherals require boards that can ben
 Balancing budget and reliability is key to scalable hardware manufacturing:
 1. **Default to High-Tg FR-4** for all multi-layer commercial designs. The modest 5-10% cost premium over standard FR-4 pays for itself through eliminated solder reflow failures and long-term field stability.
 2. **Consider Hybrid Stackups** when high-frequency routing is isolated to a few critical traces.
-3. **Engage with PCB Indonesia’s DFM team** before freezing your BOM. Our engineers will review your impedance targets and recommend the most cost-effective laminate stocks readily available in our Cikarang facility.
+3. **Engage with PCB Indonesia’s DFM team** before freezing your BOM. Our engineers will review your impedance targets and recommend the most cost-effective laminate stocks readily available in our Bogor facility.
 
 ## Summary
 

@@ -22,7 +22,37 @@ const navItems: NavItem[] = [
   { id: '07', label: 'Contact', href: '/contact' },
 ];
 
+import { getStoredLanguage, type SupportedLang } from '../../lib/i18n';
+
+const navLabels: Record<SupportedLang, Record<string, string>> = {
+  EN: {
+    '01': 'Home',
+    '02': 'Products',
+    '03': 'Capabilities',
+    '04': 'Industries',
+    '05': 'Blog',
+    '06': 'About',
+    '07': 'Contact',
+    quote: 'Get an Instant Quote',
+    close: 'CLOSE',
+    location: 'BOGOR HEADQUARTERS & FABRICATION',
+  },
+  ID: {
+    '01': 'Beranda',
+    '02': 'Produk',
+    '03': 'Kapabilitas',
+    '04': 'Industri',
+    '05': 'Blog',
+    '06': 'Tentang Kami',
+    '07': 'Kontak',
+    quote: 'Minta Penawaran Cepat',
+    close: 'TUTUP',
+    location: 'KANTOR PUSAT & PABRIK BOGOR',
+  },
+};
+
 export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
+  const [currentLang, setCurrentLang] = useState<SupportedLang>('EN');
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -30,6 +60,19 @@ export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
   const linksContainerRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  // Sync language state
+  useEffect(() => {
+    setCurrentLang(getStoredLanguage());
+    const handleLangChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ lang: SupportedLang }>;
+      if (customEvent.detail?.lang) {
+        setCurrentLang(customEvent.detail.lang);
+      }
+    };
+    window.addEventListener('languageChange', handleLangChange);
+    return () => window.removeEventListener('languageChange', handleLangChange);
+  }, []);
 
   // Lock/unlock background body scroll when open
   useEffect(() => {
@@ -205,7 +248,7 @@ export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-sm border border-white/25 hover:border-white text-white font-mono text-xs font-bold tracking-wider uppercase transition-colors active:scale-95 bg-white/5 hover:bg-white/10"
               aria-label="Close Navigation Menu"
             >
-              <span>CLOSE</span>
+              <span>{navLabels[currentLang].close}</span>
               <span className="text-sm font-light">✕</span>
             </button>
           </div>
@@ -220,6 +263,8 @@ export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
                 item.href === '/'
                   ? currentPath === '/'
                   : currentPath.startsWith(item.href);
+
+              const displayLabel = navLabels[currentLang][item.id] || item.label;
 
               return (
                 <div
@@ -246,7 +291,7 @@ export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
                             : 'text-white/90 group-hover:text-white group-hover:translate-x-1.5'
                         } transition-transform duration-200`}
                       >
-                        {item.label}
+                        {displayLabel}
                       </span>
                     </div>
 
@@ -280,7 +325,7 @@ export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
                 }}
                 className="flex-1 flex items-center justify-center gap-2 px-5 py-3.5 rounded-sm bg-brand-500 hover:bg-brand-600 text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors min-h-[44px] border border-brand-600 active:scale-[0.98]"
               >
-                <span>Get an Instant Quote</span>
+                <span>{navLabels[currentLang].quote}</span>
                 <span>→</span>
               </a>
 
@@ -290,12 +335,12 @@ export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
                 onClick={() => setIsOpen(false)}
                 className="px-5 py-3.5 rounded-sm border border-white/20 hover:border-white text-white/80 hover:text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors text-center min-h-[44px]"
               >
-                CLOSE
+                {navLabels[currentLang].close}
               </button>
             </div>
 
             <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px] text-white/50 pt-1">
-              <span>JAKARTA & BANDUNG FAB</span>
+              <span>{navLabels[currentLang].location}</span>
               <a href="tel:+622189347721" className="text-brand-300 hover:underline">
                 +62 21 8934 7721
               </a>

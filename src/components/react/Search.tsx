@@ -25,7 +25,7 @@ const searchableData: SearchItem[] = [
   { title: "Sustainable Electronics", category: "Blog", description: "RoHS lead-free soldering and closed-loop water recovery", href: "/blog/sustainable-electronics" },
   { title: "Get a Quote", category: "Actions", description: "Upload Gerber files and get instant PCB pricing", href: "/quote" },
   { title: "About PCB Indonesia", category: "Company", description: "Our mission, manufacturing facility, and quality standards", href: "/about" },
-  { title: "Contact Us", category: "Company", description: "Reach out to our engineering and sales office in Bekasi", href: "/contact" },
+  { title: "Contact Us", category: "Company", description: "Reach out to our engineering and sales facility in Bogor", href: "/contact" },
 ];
 
 export default function Search() {

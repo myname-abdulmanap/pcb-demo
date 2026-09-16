@@ -51,11 +51,11 @@ export const siteConfig: SiteConfig = {
   phone: "+62 21 8934 7721",
   whatsapp: "+62 811 8899 722",
   address: {
-    street: "Kawasan Industri MM2100, Blok C-4 No. 12",
-    city: "Cikarang Barat, Bekasi",
+    street: "Kawasan Industri Sentul, Jl. Olympic Raya No. 12",
+    city: "Bogor",
     province: "Jawa Barat",
     country: "Indonesia",
-    postalCode: "17530",
+    postalCode: "16810",
   },
   businessHours: "Monday – Friday: 08:00 – 17:00 WIB",
   socials: {

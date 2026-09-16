@@ -55,7 +55,7 @@ export default function ContactForm() {
         </div>
         <h3 className="text-xl font-bold text-dark">Message Sent Successfully!</h3>
         <p className="text-sm text-secondary max-w-md mx-auto">
-          Thank you, <span className="font-semibold text-dark">{formData.fullName}</span>. Our technical sales engineering team in Cikarang will review your requirements and respond within 2 business hours.
+          Thank you, <span className="font-semibold text-dark">{formData.fullName}</span>. Our technical sales engineering team in Bogor will review your requirements and respond within 2 business hours.
         </p>
         <button
           type="button"

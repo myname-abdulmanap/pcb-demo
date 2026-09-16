@@ -93,7 +93,7 @@ const steps: JourneyStep[] = [
     tagline: 'ESD Shielded Logistics & Domestic Handover',
     description: 'Moisture barrier bag vacuum packaging with desiccant, serial tracking labels, and express domestic courier shipping with direct engineer sign-off.',
     leadTime: '24 Hours Express',
-    deliverables: ['Sealed Moisture Barrier Bags', 'Faktur Pajak Invoicing', 'Traceability QR Batch Data'],
+    deliverables: ['Sealed Moisture Barrier Bags', 'IPC Class 3 Inspection Certificate', 'Traceability QR Batch Data'],
     image: images.timeline.delivery,
     lottieKey: 'delivery',
     technicalSpec: 'J-STD-033 MOISTURE BARRIER ESD PACKAGING',
