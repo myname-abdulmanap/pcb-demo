@@ -204,13 +204,13 @@ export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 p-2 text-dark hover:text-brand-600 focus:outline-none rounded-sm border border-border bg-white hover:border-dark transition-all"
+        className="h-9 w-9 flex flex-col items-center justify-center gap-1 p-1.5 text-dark hover:text-brand-600 focus:outline-none rounded-sm border border-border bg-white hover:border-dark transition-all active:scale-95 shadow-2xs"
         aria-label="Open Navigation Menu"
         aria-expanded={isOpen}
       >
-        <span className="block h-0.5 w-5 bg-current rounded-full" />
-        <span className="block h-0.5 w-5 bg-current rounded-full" />
-        <span className="block h-0.5 w-3.5 bg-current self-start ml-0.5 rounded-full" />
+        <span className="block h-0.5 w-4 bg-current rounded-full" />
+        <span className="block h-0.5 w-4 bg-current rounded-full" />
+        <span className="block h-0.5 w-2.5 bg-current self-start ml-0.5 rounded-full" />
       </button>
 
       {/* ========================================================================= */}

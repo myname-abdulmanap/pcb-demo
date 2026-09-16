@@ -358,18 +358,12 @@ export default function ProcessJourney() {
                 {!isEven ? (
                   /* Odd Stage (01, 03, 05, 07): Left is Text */
                   <div data-stage-text className="col-span-5 space-y-4 pr-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 bg-dark text-white font-mono text-xs font-bold rounded-xs">
-                          {step.number} // STAGE
-                        </span>
-                        <span className="text-xs font-mono font-bold text-brand-600 uppercase tracking-wider">
-                          {step.name}
-                        </span>
-                      </div>
-
-                      <span className="px-2.5 py-0.5 bg-surface-secondary border border-border rounded-xs font-mono text-[11px] text-dark font-medium">
-                        ⚡ {step.leadTime}
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 bg-dark text-white font-mono text-xs font-bold rounded-xs">
+                        {step.number} // STAGE
+                      </span>
+                      <span className="text-xs font-mono font-bold text-brand-600 uppercase tracking-wider">
+                        {step.name}
                       </span>
                     </div>
 
@@ -465,18 +459,12 @@ export default function ProcessJourney() {
                 ) : (
                   /* Even Stage: Right is Text */
                   <div data-stage-text className="col-span-5 space-y-4 pl-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 bg-dark text-white font-mono text-xs font-bold rounded-xs">
-                          {step.number} // STAGE
-                        </span>
-                        <span className="text-xs font-mono font-bold text-brand-600 uppercase tracking-wider">
-                          {step.name}
-                        </span>
-                      </div>
-
-                      <span className="px-2.5 py-0.5 bg-surface-secondary border border-border rounded-xs font-mono text-[11px] text-dark font-medium">
-                        ⚡ {step.leadTime}
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 bg-dark text-white font-mono text-xs font-bold rounded-xs">
+                        {step.number} // STAGE
+                      </span>
+                      <span className="text-xs font-mono font-bold text-brand-600 uppercase tracking-wider">
+                        {step.name}
                       </span>
                     </div>
 
@@ -557,15 +545,12 @@ export default function ProcessJourney() {
               </div>
 
               {/* Card Header */}
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+              <div className="flex items-center border-b border-border pb-3">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs font-bold text-brand-600 uppercase tracking-wider">
                     STAGE {step.number} // {step.name}
                   </span>
                 </div>
-                <span className="px-2 py-0.5 bg-surface-secondary border border-border rounded-xs font-mono text-[10px] text-dark font-medium">
-                  ⚡ {step.leadTime}
-                </span>
               </div>
 
               {/* Title and Specs */}

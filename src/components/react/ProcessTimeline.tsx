@@ -146,7 +146,6 @@ export default function ProcessTimeline() {
               <span className="px-2 py-0.5 bg-brand-50 border border-brand-200 text-brand-700 font-bold rounded-sm">
                 STAGE // {activeStep.number} OF 07
               </span>
-              <span className="text-secondary">EST. LEAD TIME: <strong className="text-dark">{activeStep.leadTime}</strong></span>
             </div>
 
             <div>
@@ -221,9 +220,8 @@ export default function ProcessTimeline() {
             key={step.number}
             className="p-5 bg-white border border-border rounded-sm space-y-4"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-border font-mono text-xs">
+            <div className="pb-3 border-b border-border font-mono text-xs">
               <span className="text-brand-600 font-bold">{step.number} // {step.name.toUpperCase()}</span>
-              <span className="text-secondary">{step.leadTime}</span>
             </div>
 
             <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-border bg-surface-secondary">

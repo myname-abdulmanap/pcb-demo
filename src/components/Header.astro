@@ -96,7 +96,7 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Mobile Controls: Search, Language Switcher, Hamburger Menu -->
-    <div class="flex items-center space-x-2 lg:hidden">
+    <div class="flex items-center gap-2 lg:hidden">
       <Search client:idle />
       <LanguageSwitcher client:load />
       <MobileMenu client:load currentPath={currentPath} />

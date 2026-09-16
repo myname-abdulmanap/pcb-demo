@@ -48,7 +48,7 @@ export default function LanguageSwitcher() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono font-semibold text-secondary hover:text-dark transition-colors rounded-sm border border-border bg-white hover:border-dark shadow-2xs"
+        className="h-9 inline-flex items-center gap-1.5 px-2.5 text-xs font-mono font-bold text-dark transition-colors rounded-sm border border-border bg-white hover:border-dark shadow-2xs active:scale-95"
         aria-expanded={isOpen}
         aria-label="Pilih bahasa / Select language"
       >

@@ -261,10 +261,6 @@ export default function ProcessVelocity() {
                       // {step.name}
                     </span>
                   </div>
-
-                  <span className="px-2.5 py-1 bg-surface-secondary border border-border rounded-xs font-mono text-[11px] text-dark font-medium">
-                    ⚡ {step.leadTime}
-                  </span>
                 </div>
 
                 {/* Middle: Authentic PCB & Manufacturing Image with Parallax Shift */}
@@ -342,18 +338,13 @@ export default function ProcessVelocity() {
 
             {/* Stage Card */}
             <div className="p-5 bg-white border border-border rounded-sm shadow-xs space-y-4">
-              <div className="flex items-center justify-between gap-2 border-b border-border pb-3">
-                <div>
-                  <span className="font-mono text-xs font-bold text-brand-600 block uppercase">
-                    STAGE {step.number}
-                  </span>
-                  <h3 className="text-lg font-bold font-display text-dark">
-                    {step.name}
-                  </h3>
-                </div>
-                <span className="px-2 py-1 bg-surface-secondary border border-border rounded-xs font-mono text-[10px] text-dark font-medium">
-                  ⚡ {step.leadTime}
+              <div className="border-b border-border pb-3">
+                <span className="font-mono text-xs font-bold text-brand-600 block uppercase">
+                  STAGE {step.number}
                 </span>
+                <h3 className="text-lg font-bold font-display text-dark">
+                  {step.name}
+                </h3>
               </div>
 
               {/* Photo Frame */}

@@ -69,7 +69,7 @@ export default function Search() {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="p-2 text-secondary hover:text-dark rounded-full hover:bg-black/5 transition-colors"
+        className="h-9 w-9 flex items-center justify-center text-secondary hover:text-dark rounded-sm border border-border bg-white hover:border-dark transition-all active:scale-95 shadow-2xs"
         aria-label="Search website (Press Ctrl+K)"
         title="Search (Ctrl+K)"
       >
