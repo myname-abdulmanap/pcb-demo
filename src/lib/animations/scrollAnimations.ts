@@ -19,17 +19,19 @@ export function initScrollAnimations(): () => void {
   }
 
   // =========================================================================
-  // 1. SMOOTH SCROLL INITIALIZATION (Fast, Responsive, 1:1 Direct Feel)
+  // 1. SMOOTH SCROLL (Desktop Only — Never fight native touch scroll on mobile)
   // =========================================================================
-  if (!lenisInstance) {
+  const isDesktop = window.innerWidth >= 1024 && !window.matchMedia('(pointer: coarse)').matches;
+
+  if (isDesktop && !lenisInstance) {
     lenisInstance = new Lenis({
-      duration: 0.75, // Rapid & snappy: no sluggish lag, no floating sensation
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Clean natural deceleration
+      duration: 0.7, // Rapid & direct: no inertia lag, no floating feeling
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
+      touchMultiplier: 0, // Never hijack touch input
     });
 
     lenisInstance.on('scroll', ScrollTrigger.update);
@@ -46,7 +48,7 @@ export function initScrollAnimations(): () => void {
 
   const ctx = gsap.context(() => {
     // =========================================================================
-    // 1. HERO SECTION (Direction-Aware Fade Entrance & Exit)
+    // 2. HERO SECTION (Bidirectional Enter / Leave Lifecycle)
     // =========================================================================
     const heroSection = document.querySelector('section');
 
@@ -78,9 +80,8 @@ export function initScrollAnimations(): () => void {
         .fromTo('[data-hero-script]', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
         .fromTo('[data-hero-floating-card]', { opacity: 0 }, { opacity: 1, duration: 0.4 }, '-=0.2');
 
-      // Parallax image shift connecting Hero to Section 2
       gsap.to('[data-hero-image-frame]', {
-        yPercent: 12,
+        yPercent: 10,
         ease: 'none',
         scrollTrigger: {
           trigger: heroSection,
@@ -107,57 +108,123 @@ export function initScrollAnimations(): () => void {
       mobileHeroTl
         .fromTo('[data-hero-eyebrow]', { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.4 })
         .fromTo('[data-hero-headline]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
-        .fromTo('[data-hero-copy]', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
-        .fromTo('[data-hero-cta]', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
+        .fromTo('[data-hero-copy]', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
+        .fromTo('[data-hero-cta]', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
         .fromTo('[data-hero-script]', { opacity: 0 }, { opacity: 1, duration: 0.4 }, '-=0.2')
         .fromTo('[data-hero-image-frame]', { opacity: 0, scale: 1.02 }, { opacity: 1, scale: 1, duration: 0.5 }, '-=0.2')
         .fromTo('[data-hero-badge]', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.05 }, '-=0.2');
     });
 
     // =========================================================================
-    // 2. LARGE EDITORIAL STATEMENT 1: "POWERING INDONESIA'S ELECTRONICS."
-    // (Scroll-Driven Horizontal Movement — Travels until all text is read)
+    // 3. FIRST EDITORIAL STATEMENT: "POWERING INDONESIA'S ELECTRONICS."
+    // (Section enters -> text reveals -> typing effect -> final typography settles)
+    // Bidirectional lifecycle: onEnter, onLeave, onEnterBack, onLeaveBack
     // =========================================================================
-    const statementSection = document.querySelector<HTMLElement>('[data-statement-section]');
-    const statementTrack = statementSection?.querySelector<HTMLElement>('[data-statement-track]');
-    const statementSubtrack = statementSection?.querySelector<HTMLElement>('[data-statement-subtrack]');
+    const statementSection1 = document.querySelector<HTMLElement>('[data-statement-section]');
 
-    if (statementSection && statementTrack) {
-      gsap.fromTo(
-        statementTrack,
-        { x: '15%' },
-        {
-          x: () => -(statementTrack.scrollWidth - window.innerWidth + 80),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: statementSection,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.8,
-          },
-        }
-      );
+    if (statementSection1) {
+      const metaEl = statementSection1.querySelector<HTMLElement>('[data-statement-meta]');
+      const quoteMark = statementSection1.querySelector<HTMLElement>('[data-quote-mark]');
+      const word1El = statementSection1.querySelector<HTMLElement>('[data-statement-word-1]');
+      const typedTextEl = statementSection1.querySelector<HTMLElement>('[data-statement-typed-text]');
+      const cursorEl = statementSection1.querySelector<HTMLElement>('[data-statement-cursor]');
+      const quoteContainer = statementSection1.querySelector<HTMLElement>('[data-statement-quote-container]');
+      const footerEl = statementSection1.querySelector<HTMLElement>('[data-statement-footer]');
 
-      if (statementSubtrack) {
-        gsap.fromTo(
-          statementSubtrack,
-          { x: '0%' },
-          {
-            x: () => -(statementSubtrack.scrollWidth - window.innerWidth + 40),
-            ease: 'none',
-            scrollTrigger: {
-              trigger: statementSection,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.8,
-            },
+      // Dynamically split typedText into individual character spans for smooth typing effect
+      let charSpans: HTMLElement[] = [];
+      if (typedTextEl) {
+        const rawText = typedTextEl.textContent?.trim() || "Indonesia’s Electronics.”";
+        typedTextEl.innerHTML = '';
+        for (let i = 0; i < rawText.length; i++) {
+          const char = rawText[i];
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.className = 'inline-block opacity-0 will-change-transform';
+          if (char === ' ') {
+            span.style.width = '0.28em';
           }
+          typedTextEl.appendChild(span);
+          charSpans.push(span);
+        }
+      }
+
+      const stmt1Tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: 'power3.out' },
+      });
+
+      // 1. Metadata and Quote Mark reveal
+      if (metaEl) {
+        stmt1Tl.fromTo(metaEl, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.45 });
+      }
+
+      if (quoteMark) {
+        stmt1Tl.fromTo(
+          quoteMark,
+          { opacity: 0, scale: 1.3 },
+          { opacity: 0.12, scale: 1, duration: 0.6, ease: 'power2.out' },
+          '-=0.25'
         );
       }
+
+      // 2. First Word “Powering” Masked Reveal
+      if (word1El) {
+        stmt1Tl.fromTo(
+          word1El,
+          { yPercent: 110, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
+          '-=0.3'
+        );
+      }
+
+      // 3. Typewriter Effect for "Indonesia’s Electronics.”
+      if (charSpans.length > 0) {
+        stmt1Tl.fromTo(
+          charSpans,
+          { opacity: 0, y: 4 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.04,
+            stagger: 0.035,
+            ease: 'none',
+          },
+          '-=0.15'
+        );
+      }
+
+      // 4. Final Typography Settles & Cursor Fades
+      if (quoteContainer) {
+        stmt1Tl.fromTo(
+          quoteContainer,
+          { scale: 1.015, letterSpacing: '0.02em' },
+          { scale: 1.0, letterSpacing: 'normal', duration: 0.6, ease: 'power2.out' },
+          '+=0.1'
+        );
+      }
+
+      if (cursorEl) {
+        stmt1Tl.to(cursorEl, { opacity: 0, duration: 0.35 }, '-=0.4');
+      }
+
+      // 5. Technical Footer Footnote Reveal
+      if (footerEl) {
+        stmt1Tl.fromTo(footerEl, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45 }, '-=0.3');
+      }
+
+      // Trigger bidirectional play & reverse on enter / leave / enterBack / leaveBack
+      ScrollTrigger.create({
+        trigger: statementSection1,
+        start: 'top 75%',
+        end: 'bottom 15%',
+        toggleActions: 'play reverse play reverse',
+        animation: stmt1Tl,
+      });
     }
 
     // =========================================================================
-    // 3. BUILT FOR INDONESIA'S ELECTRONICS FUTURE (Fade In / Fade Out Lifecycle)
+    // 4. BUILT FOR INDONESIA'S ELECTRONICS FUTURE (Fade In / Fade Out Lifecycle)
     // =========================================================================
     const introSection = document.querySelector('[data-intro-section]');
     if (introSection) {
@@ -183,7 +250,7 @@ export function initScrollAnimations(): () => void {
     }
 
     // =========================================================================
-    // 4. PRODUCTS SECTION (Staggered Fade In / Fade Out Lifecycle)
+    // 5. PRODUCTS SECTION (Staggered Fade In / Fade Out Lifecycle)
     // =========================================================================
     const productsSection = document.querySelector('[data-products-section]');
     if (productsSection) {
@@ -225,7 +292,7 @@ export function initScrollAnimations(): () => void {
     }
 
     // =========================================================================
-    // 5. INDUSTRIES SECTION (Header Fade In / Fade Out Lifecycle)
+    // 6. INDUSTRIES SECTION (Header Fade In / Fade Out Lifecycle)
     // =========================================================================
     const industriesSection = document.querySelector('[data-industries-section]');
     if (industriesSection) {
@@ -247,7 +314,7 @@ export function initScrollAnimations(): () => void {
     }
 
     // =========================================================================
-    // 6. WHY PCB INDONESIA (Cards & 3D Icons Fade In / Fade Out Lifecycle)
+    // 7. WHY PCB INDONESIA (Cards & 3D Icons Fade In / Fade Out Lifecycle)
     // =========================================================================
     const whyUsSection = document.querySelector('[data-why-us-section]');
     if (whyUsSection) {
@@ -318,7 +385,95 @@ export function initScrollAnimations(): () => void {
     }
 
     // =========================================================================
-    // 7. PROCESS SECTION: FROM CONCEPT TO PRODUCTION (Header Fade Lifecycle)
+    // 8. SECOND EDITORIAL STATEMENT: "ENGINEERED FOR WHAT'S NEXT."
+    // (Sequential words + clip-path reveal + subtle scale settling)
+    // Bidirectional lifecycle: onEnter, onLeave, onEnterBack, onLeaveBack
+    // =========================================================================
+    const statementSection2 = document.querySelector<HTMLElement>('[data-statement-section-2]');
+
+    if (statementSection2) {
+      const meta2 = statementSection2.querySelector<HTMLElement>('[data-statement-2-meta]');
+      const quoteMark2 = statementSection2.querySelector<HTMLElement>('[data-quote-mark-2]');
+      const words2 = gsap.utils.toArray<HTMLElement>(
+        statementSection2.querySelectorAll('[data-statement-2-word]')
+      );
+      const subtext2 = statementSection2.querySelector<HTMLElement>('[data-statement-2-subtext]');
+      const footer2 = statementSection2.querySelector<HTMLElement>('[data-statement-2-footer]');
+
+      const stmt2Tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: 'power3.out' },
+      });
+
+      // 1. Metadata and Background Quote Mark Reveal
+      if (meta2) {
+        stmt2Tl.fromTo(meta2, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.45 });
+      }
+
+      if (quoteMark2) {
+        stmt2Tl.fromTo(
+          quoteMark2,
+          { opacity: 0, scale: 1.3 },
+          { opacity: 0.12, scale: 1, duration: 0.6, ease: 'power2.out' },
+          '-=0.25'
+        );
+      }
+
+      // 2. Sequential Words Clip-Path + Subtle Scale
+      if (words2.length > 0) {
+        stmt2Tl.fromTo(
+          words2,
+          {
+            clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
+            y: 35,
+            scale: 1.12,
+            opacity: 0,
+          },
+          {
+            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: 'power3.out',
+          },
+          '-=0.2'
+        );
+      }
+
+      // 3. Editorial Narrative Subtitle Reveal
+      if (subtext2) {
+        stmt2Tl.fromTo(
+          subtext2,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+          '-=0.25'
+        );
+      }
+
+      // 4. Bottom Specs Footer Reveal
+      if (footer2) {
+        stmt2Tl.fromTo(
+          footer2,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.45 },
+          '-=0.2'
+        );
+      }
+
+      // Trigger bidirectional play & reverse on enter / leave / enterBack / leaveBack
+      ScrollTrigger.create({
+        trigger: statementSection2,
+        start: 'top 75%',
+        end: 'bottom 15%',
+        toggleActions: 'play reverse play reverse',
+        animation: stmt2Tl,
+      });
+    }
+
+    // =========================================================================
+    // 9. PROCESS SECTION: FROM CONCEPT TO PRODUCTION (Header Fade Lifecycle)
     // =========================================================================
     const processSection = document.querySelector('[data-process-section]');
     if (processSection) {
@@ -340,49 +495,7 @@ export function initScrollAnimations(): () => void {
     }
 
     // =========================================================================
-    // 8. SECOND EDITORIAL STATEMENT: "FROM IDEA TO CIRCUIT" (Below Process)
-    // (Scroll-Driven Horizontal Movement — Travels until all text is read)
-    // =========================================================================
-    const statementSection2 = document.querySelector<HTMLElement>('[data-statement-section-2]');
-    const statementTrack2 = statementSection2?.querySelector<HTMLElement>('[data-statement-track-2]');
-    const statementSubtrack2 = statementSection2?.querySelector<HTMLElement>('[data-statement-subtrack-2]');
-
-    if (statementSection2 && statementTrack2) {
-      gsap.fromTo(
-        statementTrack2,
-        { x: '15%' },
-        {
-          x: () => -(statementTrack2.scrollWidth - window.innerWidth + 80),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: statementSection2,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.8,
-          },
-        }
-      );
-
-      if (statementSubtrack2) {
-        gsap.fromTo(
-          statementSubtrack2,
-          { x: '0%' },
-          {
-            x: () => -(statementSubtrack2.scrollWidth - window.innerWidth + 40),
-            ease: 'none',
-            scrollTrigger: {
-              trigger: statementSection2,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.8,
-            },
-          }
-        );
-      }
-    }
-
-    // =========================================================================
-    // 9. OUR CLIENTS & PARTNERS (Fade In / Fade Out Lifecycle + Marquee)
+    // 10. OUR CLIENTS & PARTNERS (Fade In / Fade Out Lifecycle + Marquee)
     // =========================================================================
     const clientsSection = document.querySelector('[data-clients-section]');
     if (clientsSection) {
@@ -401,12 +514,10 @@ export function initScrollAnimations(): () => void {
         .fromTo('[data-marquee-track-1]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
         .fromTo('[data-marquee-track-2]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
 
-      // Continuous dual-track marquee setup
       const track1 = clientsSection.querySelector<HTMLElement>('[data-marquee-track-1]');
       const track2 = clientsSection.querySelector<HTMLElement>('[data-marquee-track-2]');
 
       if (track1 && track2) {
-        // Track 1 moves continuously left-to-right
         const marquee1 = gsap.to(track1, {
           xPercent: -33.333,
           ease: 'none',
@@ -414,7 +525,6 @@ export function initScrollAnimations(): () => void {
           repeat: -1,
         });
 
-        // Track 2 moves continuously right-to-left
         const marquee2 = gsap.fromTo(
           track2,
           { xPercent: -33.333 },
@@ -426,7 +536,6 @@ export function initScrollAnimations(): () => void {
           }
         );
 
-        // Scroll velocity response: speeds up subtly on scroll and eases back smoothly
         ScrollTrigger.create({
           trigger: clientsSection,
           start: 'top bottom',
@@ -442,7 +551,6 @@ export function initScrollAnimations(): () => void {
           },
         });
 
-        // Subtle hover pause/slow for effortless inspection
         const wrap1 = track1.parentElement;
         const wrap2 = track2.parentElement;
         if (wrap1) {
@@ -457,10 +565,11 @@ export function initScrollAnimations(): () => void {
     }
 
     // =========================================================================
-    // 10. BLOG SECTION (Header & Cards Staggered Fade In / Fade Out Lifecycle)
+    // 11. BLOG SECTION (Staggered Fade In / Fade Out Lifecycle)
     // =========================================================================
     const blogSection = document.querySelector('[data-blog-section]');
     if (blogSection) {
+      const blogCards = gsap.utils.toArray<HTMLElement>('[data-blog-card]');
       const blogTl = gsap.timeline({
         scrollTrigger: {
           trigger: blogSection,
@@ -473,19 +582,21 @@ export function initScrollAnimations(): () => void {
 
       const blogHeader = blogSection.querySelector('.border-b');
       if (blogHeader) {
-        blogTl.fromTo(blogHeader, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        blogTl.fromTo(blogHeader, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.5 });
       }
 
-      blogTl.fromTo(
-        '[data-blog-card]',
-        { opacity: 0, y: 26, scale: 0.98 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08 },
-        blogHeader ? '-=0.2' : '0'
-      );
+      if (blogCards.length > 0) {
+        blogTl.fromTo(
+          blogCards,
+          { opacity: 0, y: 26, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08 },
+          blogHeader ? '-=0.2' : '0'
+        );
+      }
     }
 
     // =========================================================================
-    // 11. FINAL CTA BANNER (Fade In / Fade Out Lifecycle)
+    // 12. FINAL CTA SECTION (Fade In / Fade Out Lifecycle)
     // =========================================================================
     const ctaSection = document.querySelector('[data-cta-section]');
     if (ctaSection) {
@@ -500,25 +611,15 @@ export function initScrollAnimations(): () => void {
       });
 
       ctaTl.fromTo(
-        '[data-cta-box]',
-        { opacity: 0, y: 24, scale: 0.97 },
+        ctaSection.querySelector('.bg-dark') || ctaSection,
+        { opacity: 0, y: 28, scale: 0.98 },
         { opacity: 1, y: 0, scale: 1, duration: 0.6 }
       );
     }
-
-    // Global refresh to ensure all trigger start/end coordinates match layout
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 200);
   });
 
-  // Return cleanup function
   return () => {
     ctx.revert();
     mm.revert();
-    if (lenisInstance) {
-      lenisInstance.destroy();
-      lenisInstance = null;
-    }
   };
 }

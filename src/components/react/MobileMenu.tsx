@@ -1,195 +1,308 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 interface MobileMenuProps {
   currentPath?: string;
 }
 
+interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+  badge?: string;
+}
+
+const navItems: NavItem[] = [
+  { id: '01', label: 'Home', href: '/' },
+  { id: '02', label: 'Products', href: '/products', badge: 'FAB & PCBA' },
+  { id: '03', label: 'Capabilities', href: '/capabilities', badge: 'IPC-CLASS 3' },
+  { id: '04', label: 'Industries', href: '/industries' },
+  { id: '05', label: 'Blog', href: '/blog' },
+  { id: '06', label: 'About', href: '/about' },
+  { id: '07', label: 'Contact', href: '/contact' },
+];
+
 export default function MobileMenu({ currentPath = '' }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const linksContainerRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
-  // Lock body scroll when mobile menu is open
+  // Lock/unlock background body scroll when open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [isOpen]);
 
-  const navLinks = [
-    { label: 'Home', href: '/' },
-    {
-      label: 'Products',
-      href: '/products',
-      children: [
-        { label: 'PCB Fabrication', href: '/products/pcb-fabrication' },
-        { label: 'PCB Assembly (PCBA)', href: '/products/pcb-assembly' },
-        { label: 'PCB Design Support', href: '/products/pcb-design' },
-        { label: 'Prototype & Custom PCB', href: '/products/prototype-custom-pcb' },
-      ],
-    },
-    { label: 'Capabilities', href: '/capabilities' },
-    {
-      label: 'Industries',
-      href: '/industries',
-      children: [
-        { label: 'Consumer Electronics', href: '/industries/consumer-electronics' },
-        { label: 'Industrial Automation', href: '/industries/industrial-automation' },
-        { label: 'IoT & Smart Devices', href: '/industries/iot' },
-        { label: 'Automotive', href: '/industries/automotive' },
-        { label: 'Telecommunications', href: '/industries/telecommunications' },
-        { label: 'Medical Devices', href: '/industries/medical' },
-        { label: 'Renewable Energy', href: '/industries/renewable-energy' },
-      ],
-    },
-    {
-      label: 'Resources',
-      href: '/resources',
-      children: [
-        { label: 'Blog & Insights', href: '/blog' },
-        { label: 'Design Guidelines', href: '/resources#guidelines' },
-        { label: 'Standard Stackups', href: '/resources#stackups' },
-        { label: 'FAQ', href: '/resources#faq' },
-      ],
-    },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-  ];
+  // Handle open/close animations using GSAP
+  useEffect(() => {
+    if (isOpen) {
+      setIsMounted(true);
+
+      // Brief tick to ensure DOM is rendered before animating
+      requestAnimationFrame(() => {
+        if (!overlayRef.current) return;
+
+        const items = linksContainerRef.current?.querySelectorAll<HTMLElement>('[data-menu-item]');
+        
+        // Kill existing running animations
+        timelineRef.current?.kill();
+
+        const tl = gsap.timeline({
+          defaults: { ease: 'power3.out' },
+        });
+
+        tl.set(overlayRef.current, { display: 'flex', opacity: 0 })
+          .to(overlayRef.current, {
+            opacity: 1,
+            duration: 0.35,
+            ease: 'power2.out',
+          })
+          .fromTo(
+            headerRef.current,
+            { y: -16, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.4 },
+            '-=0.15'
+          );
+
+        if (items && items.length > 0) {
+          tl.fromTo(
+            items,
+            {
+              y: 40,
+              opacity: 0,
+              clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
+            },
+            {
+              y: 0,
+              opacity: 1,
+              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+              duration: 0.55,
+              stagger: 0.055,
+              ease: 'power3.out',
+            },
+            '-=0.25'
+          );
+        }
+
+        if (footerRef.current) {
+          tl.fromTo(
+            footerRef.current,
+            { y: 24, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.4 },
+            '-=0.2'
+          );
+        }
+
+        timelineRef.current = tl;
+      });
+    } else if (isMounted) {
+      // Rapid animated exit sequence
+      if (overlayRef.current) {
+        timelineRef.current?.kill();
+
+        const items = linksContainerRef.current?.querySelectorAll<HTMLElement>('[data-menu-item]');
+
+        const tl = gsap.timeline({
+          defaults: { ease: 'power2.in' },
+          onComplete: () => {
+            setIsMounted(false);
+          },
+        });
+
+        if (items && items.length > 0) {
+          tl.to(items, {
+            y: -15,
+            opacity: 0,
+            duration: 0.2,
+            stagger: 0.02,
+          });
+        }
+
+        tl.to(
+          overlayRef.current,
+          {
+            opacity: 0,
+            duration: 0.25,
+            ease: 'power2.inOut',
+          },
+          '-=0.1'
+        );
+
+        timelineRef.current = tl;
+      } else {
+        setIsMounted(false);
+      }
+    }
+  }, [isOpen]);
+
+  const handleNavigate = (href: string) => {
+    setIsOpen(false);
+    setTimeout(() => {
+      window.location.href = href;
+    }, 280);
+  };
 
   return (
     <div className="lg:hidden">
-      {/* Animated Hamburger / Close Button */}
+      {/* Editorial Hamburger Toggle Button */}
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 p-2 text-dark hover:text-brand-600 focus:outline-none z-50 rounded-lg hover:bg-black/5 transition-colors"
-        aria-label="Toggle Navigation Menu"
+        onClick={() => setIsOpen(true)}
+        className="relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 p-2 text-dark hover:text-brand-600 focus:outline-none rounded-sm border border-border bg-white hover:border-dark transition-all"
+        aria-label="Open Navigation Menu"
         aria-expanded={isOpen}
       >
-        <span
-          className={`block h-0.5 w-6 bg-current rounded-full transition-all duration-300 ease-in-out ${
-            isOpen ? 'rotate-45 translate-y-2' : ''
-          }`}
-        />
-        <span
-          className={`block h-0.5 w-6 bg-current rounded-full transition-all duration-200 ease-in-out ${
-            isOpen ? 'opacity-0 scale-x-0' : 'opacity-100'
-          }`}
-        />
-        <span
-          className={`block h-0.5 w-6 bg-current rounded-full transition-all duration-300 ease-in-out ${
-            isOpen ? '-rotate-45 -translate-y-2' : ''
-          }`}
-        />
+        <span className="block h-0.5 w-5 bg-current rounded-full" />
+        <span className="block h-0.5 w-5 bg-current rounded-full" />
+        <span className="block h-0.5 w-3.5 bg-current self-start ml-0.5 rounded-full" />
       </button>
 
-      {/* Drawer Overlay */}
-      <div
-        className={`fixed inset-0 top-16 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-200 ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setIsOpen(false)}
-      />
+      {/* ========================================================================= */}
+      {/* FULL-HEIGHT EDITORIAL MOBILE NAVIGATION / SIDEBAR (GSAP ANIMATED) */}
+      {/* ========================================================================= */}
+      {isMounted && (
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 z-[999] w-full h-[100dvh] bg-[#111513] text-white flex flex-col justify-between overflow-y-auto overscroll-contain select-none"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation Menu"
+        >
+          {/* Top Bar: MENU Title & Clear CLOSE Button */}
+          <div
+            ref={headerRef}
+            className="w-full px-5 py-5 sm:px-8 sm:py-6 flex items-center justify-between border-b border-white/10 shrink-0 bg-[#111513]/95 backdrop-blur-md sticky top-0 z-20"
+          >
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-brand-400 animate-pulse" />
+              <div className="flex flex-col">
+                <span className="font-mono text-xs font-bold tracking-widest text-white uppercase">
+                  MENU
+                </span>
+                <span className="font-mono text-[9px] text-white/50 tracking-wider">
+                  SYSTEM // PCB INDONESIA
+                </span>
+              </div>
+            </div>
 
-      {/* Slide-out Menu Panel */}
-      <div
-        className={`fixed top-16 right-0 bottom-0 w-[85%] max-w-sm bg-white z-50 shadow-card border-l border-border flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          <nav className="flex flex-col space-y-1">
-            {navLinks.map((item, index) => {
-              const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
-              const hasChildren = item.children && item.children.length > 0;
-              const isSubmenuOpen = openSubmenu === item.label;
+            {/* Clear CLOSE Button */}
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-sm border border-white/25 hover:border-white text-white font-mono text-xs font-bold tracking-wider uppercase transition-colors active:scale-95 bg-white/5 hover:bg-white/10"
+              aria-label="Close Navigation Menu"
+            >
+              <span>CLOSE</span>
+              <span className="text-sm font-light">✕</span>
+            </button>
+          </div>
+
+          {/* Center Navigation Links: Editorial Typography with Staggered Entrance */}
+          <div
+            ref={linksContainerRef}
+            className="flex-1 px-5 sm:px-8 py-6 sm:py-8 flex flex-col justify-center max-w-xl mx-auto w-full space-y-1 sm:space-y-2 overflow-y-auto"
+          >
+            {navItems.map((item) => {
+              const isActive =
+                item.href === '/'
+                  ? currentPath === '/'
+                  : currentPath.startsWith(item.href);
 
               return (
                 <div
-                  key={item.label}
-                  className={`border-b border-border/40 pb-2 transition-all duration-300 ease-out ${
-                    isOpen
-                      ? 'opacity-100 translate-x-0'
-                      : 'opacity-0 translate-x-6'
-                  }`}
-                  style={{ transitionDelay: isOpen ? `${index * 45 + 50}ms` : `${(navLinks.length - index) * 20}ms` }}
+                  key={item.id}
+                  data-menu-item
+                  className="w-full border-b border-white/10 py-2 sm:py-3 transition-colors group"
                 >
-                  <div className="flex items-center justify-between">
-                    <a
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`text-base font-semibold py-2 transition-colors ${
-                        isActive ? 'text-brand-600 font-bold' : 'text-dark hover:text-brand-600'
-                      }`}
-                    >
-                      {item.label}
-                    </a>
-                    {hasChildren && (
-                      <button
-                        type="button"
-                        onClick={() => setOpenSubmenu(isSubmenuOpen ? null : item.label)}
-                        className="p-2 text-secondary hover:text-dark transition-colors"
-                        aria-label={`Toggle ${item.label} submenu`}
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigate(item.href);
+                    }}
+                    className="w-full flex items-center justify-between py-1.5 focus:outline-none min-h-[44px]"
+                  >
+                    <div className="flex items-baseline gap-3.5 sm:gap-5">
+                      <span className="font-mono text-xs sm:text-sm font-semibold text-brand-400/80 group-hover:text-brand-300 transition-colors">
+                        {item.id}
+                      </span>
+                      <span
+                        className={`text-2xl sm:text-3xl font-extrabold uppercase font-display tracking-tight transition-colors ${
+                          isActive
+                            ? 'text-brand-400 font-black'
+                            : 'text-white/90 group-hover:text-white group-hover:translate-x-1.5'
+                        } transition-transform duration-200`}
                       >
-                        <svg
-                          className={`w-4 h-4 transition-transform duration-200 ${isSubmenuOpen ? 'rotate-180 text-brand-600' : ''}`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
-
-                  {hasChildren && isSubmenuOpen && (
-                    <div className="pl-4 mt-1 space-y-2 border-l-2 border-border animate-fade-in">
-                      {item.children?.map((child) => (
-                        <a
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setIsOpen(false)}
-                          className="block py-1.5 text-xs font-medium text-secondary hover:text-brand-600 transition-colors"
-                        >
-                          {child.label}
-                        </a>
-                      ))}
+                        {item.label}
+                      </span>
                     </div>
-                  )}
+
+                    <div className="flex items-center gap-3">
+                      {item.badge && (
+                        <span className="hidden xs:inline-block font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-xs border border-white/15 text-white/60 bg-white/5">
+                          {item.badge}
+                        </span>
+                      )}
+                      <span className="font-mono text-base sm:text-lg text-white/40 group-hover:text-brand-400 group-hover:translate-x-1 transition-all duration-200">
+                        →
+                      </span>
+                    </div>
+                  </a>
                 </div>
               );
             })}
-          </nav>
-        </div>
+          </div>
 
-        {/* Drawer Footer with Staggered CTA */}
-        <div
-          className={`p-6 bg-surface border-t border-border space-y-3 transition-all duration-300 ease-out ${
-            isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-          style={{ transitionDelay: isOpen ? `${navLinks.length * 45 + 100}ms` : '0ms' }}
-        >
-          <a
-            href="/quote"
-            onClick={() => setIsOpen(false)}
-            className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-sm bg-brand-500 hover:bg-brand-600 text-white font-mono text-xs font-semibold uppercase tracking-wider transition-colors min-h-[44px] border border-brand-600"
+          {/* Bottom Panel: Primary Action CTA & Domestic Contact Information */}
+          <div
+            ref={footerRef}
+            className="w-full px-5 py-5 sm:px-8 sm:py-6 border-t border-white/10 bg-[#0D100E] shrink-0 space-y-4"
           >
-            <span>Get a Quote</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <a
+                href="/quote"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigate('/quote');
+                }}
+                className="flex-1 flex items-center justify-center gap-2 px-5 py-3.5 rounded-sm bg-brand-500 hover:bg-brand-600 text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors min-h-[44px] border border-brand-600 active:scale-[0.98]"
+              >
+                <span>Get an Instant Quote</span>
+                <span>→</span>
+              </a>
 
-          <div className="text-center text-xs text-secondary pt-1">
-            <span>Direct Support: <a href="tel:+622189347721" className="font-semibold text-dark hover:underline">+62 21 8934 7721</a></span>
+              {/* Bottom Prominent CLOSE Button */}
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="px-5 py-3.5 rounded-sm border border-white/20 hover:border-white text-white/80 hover:text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors text-center min-h-[44px]"
+              >
+                CLOSE
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px] text-white/50 pt-1">
+              <span>JAKARTA & BANDUNG FAB</span>
+              <a href="tel:+622189347721" className="text-brand-300 hover:underline">
+                +62 21 8934 7721
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
