@@ -72,8 +72,8 @@ export const images = {
       alt: "24-72 hour rapid turn prototype board fabrication",
     },
     testing: {
-      src: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=800&q=80",
-      alt: "Automated optical inspection (AOI) and radiographic X-ray testing",
+      src: "/images/pcb-aoi-inspection.jpg",
+      alt: "Automated 3D optical inspection (AOI) and radiographic X-ray testing machine in cleanroom",
     },
     production: {
       src: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
