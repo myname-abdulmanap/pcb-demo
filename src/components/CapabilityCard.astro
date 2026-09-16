@@ -1,0 +1,110 @@
+---
+import type { CapabilityItem } from '../data/capabilities';
+
+export interface Props {
+  capability: CapabilityItem;
+  theme?: 'light' | 'dark';
+}
+
+const { capability, theme = 'light' } = Astro.props;
+const isDark = theme === 'dark';
+---
+
+<div class:list={[
+  "rounded-2xl border p-6 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1",
+  isDark
+    ? "bg-dark/60 border-dark-border text-white hover:border-brand-400/50 hover:bg-dark"
+    : "bg-white border-border text-dark shadow-card hover:shadow-card-hover hover:border-brand-500/40"
+]}>
+  <div>
+    <!-- Icon Container -->
+    <div class:list={[
+      "w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors",
+      isDark ? "bg-brand-500/10 text-brand-400 border border-brand-500/20" : "bg-brand-50 text-brand-600 border border-brand-200"
+    ]}>
+      {capability.icon === 'layers' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      )}
+      {capability.icon === 'grid' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+      )}
+      {capability.icon === 'minimize-2' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M4 10h6m0 0V4m0 6L3 3m17 7h-6m0 0V4m0 6l7-7" />
+        </svg>
+      )}
+      {capability.icon === 'repeat' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+      )}
+      {capability.icon === 'cpu' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h6v6H9zM9 1v3m6-3v3m-6 16v3m6-3v3M1 9h3m-3 6h3m16-6h3m-3 6h3" />
+        </svg>
+      )}
+      {capability.icon === 'crosshair' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke-width="2" />
+          <line x1="22" y1="12" x2="18" y2="12" stroke-width="2" />
+          <line x1="6" y1="12" x2="2" y2="12" stroke-width="2" />
+          <line x1="12" y1="6" x2="12" y2="2" stroke-width="2" />
+          <line x1="12" y1="22" x2="12" y2="18" stroke-width="2" />
+        </svg>
+      )}
+      {capability.icon === 'git-commit' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" stroke-width="2" />
+          <line x1="1.05" y1="12" x2="7" y2="12" stroke-width="2" />
+          <line x1="17.01" y1="12" x2="22.96" y2="12" stroke-width="2" />
+        </svg>
+      )}
+      {capability.icon === 'zap' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke-width="2" />
+        </svg>
+      )}
+      {capability.icon === 'check-circle' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )}
+      {capability.icon === 'activity' && (
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-width="2" />
+        </svg>
+      )}
+    </div>
+
+    <h3 class:list={[
+      "text-base font-bold mb-2 transition-colors",
+      isDark ? "text-white group-hover:text-brand-300" : "text-dark group-hover:text-brand-600"
+    ]}>
+      {capability.title}
+    </h3>
+
+    <p class:list={[
+      "text-xs leading-relaxed mb-4",
+      isDark ? "text-white/70" : "text-secondary"
+    ]}>
+      {capability.description}
+    </p>
+  </div>
+
+  <!-- Specs Pills -->
+  <div class="flex flex-wrap gap-1.5 pt-3 border-t border-border/40">
+    {capability.specs.map((spec) => (
+      <span class:list={[
+        "text-[10px] font-medium px-2 py-0.5 rounded",
+        isDark ? "bg-white/10 text-brand-200" : "bg-surface text-secondary border border-border/80"
+      ]}>
+        {spec}
+      </span>
+    ))}
+  </div>
+</div>

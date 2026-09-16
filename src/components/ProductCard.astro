@@ -1,0 +1,77 @@
+---
+import type { ProductItem } from '../data/products';
+
+export interface Props {
+  product: ProductItem;
+}
+
+const { product } = Astro.props;
+---
+
+<div class="group bg-white rounded-2xl border border-border overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col hover:-translate-y-1">
+  <!-- Image Container -->
+  <div class="relative aspect-[16/10] overflow-hidden bg-surface">
+    <img
+      src={product.image.src}
+      alt={product.image.alt}
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      loading="lazy"
+      width="600"
+      height="375"
+    />
+    <!-- Floating Icon Badge matching ui.png -->
+    <div class="absolute bottom-3 left-3 w-9 h-9 rounded-xl bg-white/95 backdrop-blur-md shadow-sm border border-border flex items-center justify-center text-brand-600">
+      {product.icon === 'layers' && (
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      )}
+      {product.icon === 'cpu' && (
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h6v6H9zM9 1v3m6-3v3m-6 16v3m6-3v3M1 9h3m-3 6h3m16-6h3m-3 6h3" />
+        </svg>
+      )}
+      {product.icon === 'pen-tool' && (
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      )}
+      {product.icon === 'boxes' && (
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+      )}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-6 flex-1 flex flex-col justify-between">
+    <div>
+      <h3 class="text-base font-bold text-dark group-hover:text-brand-600 transition-colors">
+        <a href={`/products/${product.slug}`} class="focus:outline-none">
+          {product.title}
+        </a>
+      </h3>
+      <p class="mt-2 text-xs text-secondary leading-relaxed line-clamp-2">
+        {product.description}
+      </p>
+    </div>
+
+    <!-- Bottom Action Arrow Button -->
+    <div class="pt-5 flex items-center justify-between border-t border-border/50 mt-4">
+      <span class="text-xs font-semibold text-secondary group-hover:text-brand-600 transition-colors">
+        Learn More
+      </span>
+      <a
+        href={`/products/${product.slug}`}
+        class="w-8 h-8 rounded-full bg-surface border border-border group-hover:bg-brand-500 group-hover:border-brand-500 group-hover:text-white text-secondary flex items-center justify-center transition-all duration-200"
+        aria-label={`View details for ${product.title}`}
+      >
+        <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

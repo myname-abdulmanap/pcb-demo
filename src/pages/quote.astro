@@ -1,0 +1,89 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../data/site';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import QuoteForm from '../components/react/QuoteForm';
+
+const breadcrumbs = [{ label: 'Get a Quote' }];
+---
+
+<PageLayout
+  title={`Get a Quote — Instant PCB & PCBA Estimation | ${siteConfig.name}`}
+  description="Request a fast, certified quotation for PCB fabrication, multilayer HDI boards, and turnkey SMT assembly. Upload your Gerber files for rapid DFM analysis."
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: '/quote' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-white border-b border-border py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <div class="flex justify-center">
+        <Breadcrumb items={breadcrumbs} />
+      </div>
+
+      <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mt-2 mb-2">
+        RAPID ESTIMATION & DFM ANALYSIS
+      </span>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-dark tracking-tight leading-tight">
+        Configure Your Custom PCB Quote
+      </h1>
+
+      <p class="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+        Select your board specifications, delivery target, and attach your Gerber or CAD files. Our CAM engineers will evaluate your design and deliver an itemized quotation within hours.
+      </p>
+
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap items-center justify-center gap-6 pt-6 text-xs font-semibold text-secondary">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <span>Strict Non-Disclosure Agreement (NDA)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Complimentary DFM Check Included</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span>Fast Local Turnaround in Indonesia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Form Island -->
+  <section class="py-12 lg:py-20 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <QuoteForm client:load />
+    </div>
+  </section>
+
+  <!-- Gerber File Guidelines FAQ -->
+  <section class="py-16 bg-white border-t border-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-xl sm:text-2xl font-bold text-dark text-center mb-8">
+        File Preparation & Guidelines
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+        <div class="p-6 rounded-2xl bg-surface border border-border space-y-2">
+          <h3 class="font-bold text-dark">Accepted File Formats</h3>
+          <p class="text-secondary leading-relaxed">
+            We support standard RS-274X Gerber archives, ODB++ manufacturing databases, IPC-2581, and native CAD files from Altium (.PcbDoc), KiCad (.kicad_pcb), and Eagle (.brd). Please package all layers in a single .ZIP or .RAR file.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-surface border border-border space-y-2">
+          <h3 class="font-bold text-dark">Turnkey PCBA Requirements</h3>
+          <p class="text-secondary leading-relaxed">
+            For assembly orders, please include: (1) Bill of Materials (BOM) in Excel/.CSV format with manufacturer part numbers (MPN) and reference designators, and (2) Centroid (Pick & Place / XY coordinates) file.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>

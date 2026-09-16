@@ -1,0 +1,133 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../data/site';
+import { images } from '../data/images';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Stats from '../components/Stats.astro';
+import CTA from '../components/CTA.astro';
+
+const breadcrumbs = [{ label: 'About Us' }];
+---
+
+<PageLayout
+  title={`About Us — ${siteConfig.name}`}
+  description="Learn about PCB Indonesia's mission to power Indonesia's electronic manufacturing ecosystem with world-class PCB fabrication, assembly, and local engineering support."
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: '/about' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-white border-b border-border py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumb items={breadcrumbs} />
+
+      <div class="max-w-3xl mt-4">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          OUR MISSION & STORY
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-dark tracking-tight leading-tight">
+          Building Indonesia's Electronics Future
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+          PCB Indonesia was established with a singular conviction: to empower Indonesian hardware innovators, high-tech enterprises, and research institutions with locally manufactured, globally certified printed circuit boards.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story & Vision Grid -->
+  <section class="py-16 lg:py-24 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-dark tracking-tight leading-snug">
+            Bridging the Gap Between Concept and Commercial Hardware
+          </h2>
+          <p class="text-xs sm:text-sm text-secondary leading-relaxed">
+            For decades, Indonesian hardware startups and engineering firms endured weeks of overseas shipping delays, customs complexities, and communication barriers just to fabricate prototypes. PCB Indonesia changes that landscape.
+          </p>
+          <p class="text-xs sm:text-sm text-secondary leading-relaxed">
+            Situated in the industrial corridor of Cikarang, West Java, our automated facility combines high-speed CNC drilling, direct laser imaging, automated SMT lines, and 3D optical inspection to bring international manufacturing excellence straight to your lab.
+          </p>
+
+          <!-- Core Values -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+            <div class="p-4 bg-white rounded-xl border border-border">
+              <h3 class="text-sm font-bold text-dark mb-1">Local Empowerment</h3>
+              <p class="text-xs text-secondary">Cultivating domestic high-tech manufacturing skills and reliable local component supply chains.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-border">
+              <h3 class="text-sm font-bold text-dark mb-1">Zero-Defect Quality</h3>
+              <p class="text-xs text-secondary">Every trace, hole, and solder joint is verified against strict IPC Class 2 and Class 3 standards.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="rounded-3xl overflow-hidden shadow-card border border-border aspect-[4/3]">
+            <img
+              src={images.about.team.src}
+              alt={images.about.team.alt}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="800"
+              height="600"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality Commitment & Certifications -->
+  <section id="quality" class="py-16 bg-white border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeader
+        eyebrow="QUALITY FIRST"
+        heading="Our Manufacturing Philosophy"
+        subtitle="We view quality not as an inspection step at the end of the line, but as a continuous engineering discipline."
+        align="center"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <div class="p-8 rounded-2xl bg-surface border border-border text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-dark">IPC-A-600 / 610 Certified</h3>
+          <p class="text-xs text-secondary leading-relaxed">
+            Bare board acceptability and electronic assemblies compliant with both Class 2 dedicated service and Class 3 high-reliability electronics.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-2xl bg-surface border border-border text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-dark">100% Electrical & AOI Testing</h3>
+          <p class="text-xs text-secondary leading-relaxed">
+            Every fabricated board undergoes automated optical inspection and flying-probe continuity testing prior to vacuum packaging and dispatch.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-2xl bg-surface border border-border text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-dark">Eco-Friendly & RoHS Standard</h3>
+          <p class="text-xs text-secondary leading-relaxed">
+            Standardizing on lead-free solder alloys, closed-loop water treatment, and copper reclamation to minimize environmental impact across Indonesia.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTA />
+</PageLayout>

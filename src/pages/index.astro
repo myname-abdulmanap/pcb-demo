@@ -1,0 +1,487 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../data/site';
+import { productsData } from '../data/products';
+import { industriesData } from '../data/industries';
+import { images } from '../data/images';
+import ProductCard from '../components/ProductCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import Stats from '../components/Stats.astro';
+import CTA from '../components/CTA.astro';
+import { getCollection } from 'astro:content';
+
+const allBlogPosts = await getCollection('blog');
+const featuredPosts = allBlogPosts.slice(0, 3);
+---
+
+<PageLayout
+  title={`${siteConfig.name} — ${siteConfig.tagline}`}
+  description={siteConfig.description}
+>
+  <!-- ========================================================================= -->
+  <!-- 1. HERO SECTION (Strictly matching ui.png) -->
+  <!-- ========================================================================= -->
+  <section class="relative w-full pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden bg-gradient-to-b from-[#F8FAF9] via-white to-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Hero Left Column: Copy & Actions -->
+        <div class="lg:col-span-7 space-y-6 z-10">
+          <!-- Eyebrow -->
+          <div class="inline-flex items-center gap-2">
+            <span class="text-[11px] font-extrabold tracking-widest text-secondary uppercase">
+              INDONESIA'S TRUSTED PCB MANUFACTURING PARTNER
+            </span>
+          </div>
+
+          <!-- Headline -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-dark tracking-tight leading-[1.1]">
+            Turning Ideas<br />
+            into <span class="text-brand-500">Real Solutions</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-base sm:text-lg text-secondary max-w-xl leading-relaxed">
+            High-quality PCB fabrication and assembly services for innovators, businesses, and industries across Indonesia.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a
+              href="/quote"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm shadow-md shadow-brand-500/25 transition-all duration-200 hover:-translate-y-0.5"
+            >
+              <span>Get a Quote</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-surface text-dark font-semibold text-sm border border-border hover:border-dark transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+            >
+              <span>Talk to Our Team</span>
+            </a>
+          </div>
+
+          <!-- Value Propositions Row (matching 4 trust badges in ui.png) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-border/80">
+            <!-- 1. High Quality -->
+            <div class="flex items-start gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-dark">High Quality</h4>
+                <p class="text-[11px] text-secondary">Reliable & certified</p>
+              </div>
+            </div>
+
+            <!-- 2. Fast Turnaround -->
+            <div class="flex items-start gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-dark">Fast Turnaround</h4>
+                <p class="text-[11px] text-secondary">From prototype to mass</p>
+              </div>
+            </div>
+
+            <!-- 3. Local Support -->
+            <div class="flex items-start gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-dark">Local Support</h4>
+                <p class="text-[11px] text-secondary">Based in Indonesia</p>
+              </div>
+            </div>
+
+            <!-- 4. Competitive Pricing -->
+            <div class="flex items-start gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 flex-shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-dark">Competitive Pricing</h4>
+                <p class="text-[11px] text-secondary">Best value for project</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right Column: High-Res Angled PCB & Script Annotations -->
+        <div class="lg:col-span-5 relative">
+          <!-- Handwritten Script Annotation with Arrow matching ui.png -->
+          <div class="hidden sm:block absolute -top-8 right-8 z-20 text-right pointer-events-none">
+            <div class="font-script text-2xl md:text-3xl font-bold text-dark/90 leading-tight transform -rotate-3">
+              Better Electronics<br />
+              <span class="text-brand-600">A Brighter Indonesia</span>
+            </div>
+            <!-- Hand-drawn curved arrow indicator -->
+            <svg class="w-12 h-10 text-brand-600 ml-auto -mt-1 transform rotate-12" viewBox="0 0 50 40" fill="none" stroke="currentColor">
+              <path d="M10 5 C 25 15, 35 25, 42 32" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M34 33 L 42 32 L 40 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+
+          <!-- Main Angled PCB Image Frame -->
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform lg:rotate-2 hover:rotate-0 transition-transform duration-500 bg-dark">
+            <img
+              src={images.hero.pcbMain.src}
+              alt={images.hero.pcbMain.alt}
+              class="w-full h-auto object-cover aspect-[4/3] scale-105 hover:scale-100 transition-transform duration-700"
+              width="640"
+              height="480"
+              loading="eager"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/40 via-transparent to-transparent pointer-events-none" />
+          </div>
+
+          <!-- Floating Pill Badge: Proudly Supporting Indonesia's Innovation (matching ui.png) -->
+          <div class="sm:absolute -bottom-6 -left-6 z-20 mt-4 sm:mt-0">
+            <a
+              href="/about"
+              class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white shadow-floating border border-border hover:border-brand-500 transition-all duration-300 group"
+            >
+              <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
+                <!-- Indonesia Island map outline / circuit badge -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <div class="text-xs font-bold text-dark group-hover:text-brand-600 transition-colors">
+                  Proudly Supporting
+                </div>
+                <div class="text-[11px] text-secondary font-medium">
+                  Indonesia's Innovation
+                </div>
+              </div>
+              <svg class="w-4 h-4 text-secondary group-hover:text-brand-600 group-hover:translate-x-1 transition-all ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 2. INTRODUCING SECTION (matching ui.png) -->
+  <!-- ========================================================================= -->
+  <section class="w-full py-16 lg:py-24 bg-white border-y border-border/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left: Headline & Story -->
+        <div class="lg:col-span-4 space-y-4">
+          <span class="text-[11px] font-extrabold tracking-widest text-brand-600 uppercase block">
+            INTRODUCING
+          </span>
+
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight leading-snug">
+            More Than Just PCBs.<br />
+            <span class="text-dark">We Build Possibilities.</span>
+          </h2>
+
+          <p class="text-xs sm:text-sm text-secondary leading-relaxed pt-1">
+            PCB Indonesia is a local manufacturing partner committed to providing reliable, high-quality, and cost-effective PCB solutions — from prototype to mass production. We combine modern technology, experienced teams, and a strong local supply chain to help bring your ideas to life.
+          </p>
+
+          <div class="pt-2">
+            <a
+              href="/about"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs transition-all shadow-sm hover:shadow"
+            >
+              <span>Our Story</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Center: Factory Photo with floating badge -->
+        <div class="lg:col-span-5 relative">
+          <div class="rounded-3xl overflow-hidden shadow-card border border-border aspect-[4/3]">
+            <img
+              src={images.introducing.factoryCleanroom.src}
+              alt={images.introducing.factoryCleanroom.alt}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="450"
+            />
+          </div>
+
+          <!-- Floating Green Badge matching ui.png -->
+          <div class="absolute -bottom-6 left-6 right-6 sm:left-4 sm:right-auto sm:max-w-xs bg-brand-500 text-white p-5 rounded-2xl shadow-floating border border-brand-400">
+            <h4 class="text-sm font-bold leading-snug">
+              Local Manufacturing<br />Global Standards
+            </h4>
+            <p class="text-xs text-brand-100 mt-1 leading-relaxed">
+              Supporting a stronger electronics ecosystem in Indonesia.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Vertical Stats Column matching ui.png -->
+        <div class="lg:col-span-3 pt-8 sm:pt-0">
+          <Stats />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 3. OUR PRODUCTS & SERVICES (4 Cards matching ui.png) -->
+  <!-- ========================================================================= -->
+  <section class="w-full py-16 lg:py-24 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header with View All Products link -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-dark tracking-tight">
+            Our Products & Services
+          </h2>
+          <p class="mt-2 text-sm text-secondary">
+            Complete PCB manufacturing solutions tailored to your needs.
+          </p>
+        </div>
+
+        <a
+          href="/products"
+          class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-dark hover:text-brand-600 transition-colors group"
+        >
+          <span>View All Products</span>
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- 4 Products Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {productsData.map((prod) => (
+          <ProductCard product={prod} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. INDUSTRIES WE SERVE (Dark Green Circuit Banner matching ui.png) -->
+  <!-- ========================================================================= -->
+  <section class="w-full py-16 lg:py-20 bg-[#073827] bg-circuit-dark text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left Text -->
+        <div class="lg:col-span-5 space-y-3">
+          <span class="text-[11px] font-extrabold tracking-widest text-brand-300 uppercase block">
+            INDUSTRIES WE SERVE
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+            Powering Innovation<br />Across Industries
+          </h2>
+          <p class="text-xs sm:text-sm text-brand-100/80 leading-relaxed max-w-md">
+            From startups to large enterprises, our PCBs are used in a wide range of industries to create real-world impact.
+          </p>
+        </div>
+
+        <!-- Right: 7 Industry Icons / Pills (matching ui.png) -->
+        <div class="lg:col-span-7">
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+            {industriesData.map((ind) => (
+              <a
+                href={`/industries/${ind.slug}`}
+                class="flex flex-col items-center text-center p-3 rounded-2xl bg-white/5 hover:bg-white/15 border border-white/10 transition-all duration-300 hover:-translate-y-1 group"
+              >
+                <div class="w-11 h-11 rounded-xl bg-white/10 group-hover:bg-brand-500 flex items-center justify-center text-brand-200 group-hover:text-white transition-colors mb-2">
+                  {ind.icon === 'laptop' && (
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" stroke-width="2" />
+                      <line x1="12" y1="17" x2="12" y2="21" stroke-width="2" />
+                    </svg>
+                  )}
+                  {ind.icon === 'cpu' && (
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h6v6H9zM9 1v3m6-3v3m-6 16v3m6-3v3M1 9h3m-3 6h3m16-6h3m-3 6h3" />
+                    </svg>
+                  )}
+                  {ind.icon === 'wifi' && (
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                    </svg>
+                  )}
+                  {ind.icon === 'car' && (
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M7 17a2 2 0 11-4 0 2 2 0 014 0zm14 0a2 2 0 11-4 0 2 2 0 014 0zm-15-4l1.5-6h11l1.5 6M3 13h18v4H3v-4z" />
+                    </svg>
+                  )}
+                  {ind.icon === 'radio' && (
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="2" stroke-width="2" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.24 7.76a6 6 0 010 8.49m-8.48-.01a6 6 0 010-8.49m11.31-2.82a10 10 0 010 14.14m-14.14 0a10 10 0 010-14.14" />
+                    </svg>
+                  )}
+                  {ind.icon === 'heart-pulse' && (
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  )}
+                  {ind.icon === 'sun' && (
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="5" stroke-width="2" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                  )}
+                </div>
+                <span class="text-[11px] font-semibold text-white/90 group-hover:text-white line-clamp-2 leading-tight">
+                  {ind.name}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. OUR PROCESS (4 Steps with Right CTA Card matching ui.png) -->
+  <!-- ========================================================================= -->
+  <section class="w-full py-16 lg:py-24 bg-white border-b border-border/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-dark tracking-tight">
+          Our Process
+        </h2>
+        <p class="mt-2 text-sm text-secondary">
+          Simple, transparent, and efficient — from your idea to a finished product.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- 4 Process Steps connected horizontally -->
+        <div class="lg:col-span-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <ProcessStep
+              step={1}
+              title="Get a Quote"
+              description="Share your requirements with our team."
+            />
+            <ProcessStep
+              step={2}
+              title="Design & Review"
+              description="We review and optimize your design."
+            />
+            <ProcessStep
+              step={3}
+              title="Manufacturing"
+              description="High-precision production with strict quality control."
+            />
+            <ProcessStep
+              step={4}
+              title="Testing & Delivery"
+              description="Fully tested and delivered to your doorstep."
+              isLast={true}
+            />
+          </div>
+        </div>
+
+        <!-- Right Box: Ready to start your project? (matching ui.png) -->
+        <div class="lg:col-span-4 bg-surface rounded-3xl p-6 sm:p-8 border border-border shadow-card flex flex-col justify-between">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-10 h-10 rounded-2xl bg-brand-50 border border-brand-200 text-brand-600 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-dark">Ready to start your project?</h3>
+              <p class="text-xs text-secondary mt-1 leading-relaxed">
+                Get a quote today and let's build something great together.
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="/quote"
+            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs sm:text-sm shadow-md shadow-brand-500/20 transition-all duration-200"
+          >
+            <span>Get a Quote</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. LATEST FROM OUR BLOG (3 Editorial Cards matching ui.png) -->
+  <!-- ========================================================================= -->
+  <section class="w-full py-16 lg:py-24 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
+        <div class="lg:col-span-4 space-y-2">
+          <span class="text-[11px] font-extrabold tracking-widest text-brand-600 uppercase block">
+            INSIGHTS & UPDATES
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight leading-tight">
+            Latest from<br />Our Blog
+          </h2>
+          <p class="text-xs sm:text-sm text-secondary leading-relaxed pt-1">
+            Tips, guides, and stories from the world of PCB and electronics.
+          </p>
+          <div class="pt-3">
+            <a
+              href="/blog"
+              class="inline-flex items-center gap-1.5 text-xs font-bold text-dark hover:text-brand-600 transition-colors group"
+            >
+              <span>View All Articles</span>
+              <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3 Cards -->
+        <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {featuredPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              category={post.data.category}
+              featuredImage={post.data.featuredImage}
+              slug={post.id ? post.id.replace(/\.md$/, '') : (post as any).slug}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 7. FINAL CALL TO ACTION (Mint Green banner matching ui.png) -->
+  <!-- ========================================================================= -->
+  <CTA />
+</PageLayout>

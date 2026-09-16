@@ -1,0 +1,104 @@
+---
+import { mainNavigation } from '../data/navigation';
+import Search from './react/Search';
+import LanguageSwitcher from './react/LanguageSwitcher';
+import MobileMenu from './react/MobileMenu';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  id="main-header"
+  class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-border/80 transition-all duration-300"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="/" class="flex items-center gap-3 group focus:outline-none" aria-label="PCB Indonesia Home">
+      <img
+        src="/pcb-indonesia-logo.svg"
+        alt="PCB Indonesia — Connect Ideas. Build Tomorrow."
+        class="h-10 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+        width="180"
+        height="42"
+      />
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden lg:flex items-center space-x-7" aria-label="Main Navigation">
+      {mainNavigation.map((item) => {
+        const isCurrent = item.href === '/'
+          ? currentPath === '/'
+          : currentPath.startsWith(item.href);
+        const hasChildren = item.children && item.children.length > 0;
+
+        return (
+          <div class="relative group py-6">
+            <a
+              href={item.href}
+              class:list={[
+                "relative text-sm font-medium transition-colors flex items-center gap-1",
+                isCurrent ? "text-dark font-semibold" : "text-dark/80 hover:text-dark"
+              ]}
+              aria-current={isCurrent ? "page" : undefined}
+            >
+              <span>{item.label}</span>
+              {hasChildren && (
+                <svg class="w-3.5 h-3.5 text-secondary group-hover:text-dark transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              )}
+              {isCurrent && (
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand-500 rounded-full" />
+              )}
+            </a>
+
+            {/* Dropdown Menu */}
+            {hasChildren && (
+              <div class="absolute top-[64px] left-1/2 -translate-x-1/2 w-64 bg-white rounded-xl shadow-card-hover border border-border py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {item.children?.map((child) => (
+                  <a
+                    href={child.href}
+                    class="block px-4 py-2.5 hover:bg-surface transition-colors"
+                  >
+                    <div class="text-xs font-semibold text-dark hover:text-brand-600 transition-colors">
+                      {child.label}
+                    </div>
+                    {child.description && (
+                      <p class="text-[11px] text-secondary line-clamp-1 mt-0.5">{child.description}</p>
+                    )}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </nav>
+
+    <!-- Right Actions: Search, Language Switcher, CTA Button -->
+    <div class="hidden sm:flex items-center space-x-3">
+      <!-- Search Trigger Modal -->
+      <Search client:idle />
+
+      <!-- Language Switcher Island -->
+      <LanguageSwitcher client:idle />
+
+      <!-- Primary CTA: Get a Quote -->
+      <a
+        href="/quote"
+        class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-brand-500 hover:bg-brand-600 rounded-full shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5"
+      >
+        <span>Get a Quote</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="flex items-center space-x-2 lg:hidden">
+      <Search client:idle />
+      <MobileMenu currentPath={currentPath} client:load />
+    </div>
+  </div>
+</header>

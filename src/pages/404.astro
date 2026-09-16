@@ -1,0 +1,54 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="404 — Looks Like This Board Isn't Connected | PCB Indonesia"
+  description="The page you are looking for doesn't exist or may have moved."
+>
+  <div class="min-h-[70vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 bg-circuit-pattern">
+    <div class="max-w-xl w-full text-center bg-white p-8 sm:p-12 rounded-3xl border border-border shadow-card space-y-6">
+      <!-- Circuit Illustration for 404 -->
+      <div class="relative w-28 h-28 mx-auto flex items-center justify-center">
+        <div class="absolute inset-0 bg-brand-50 rounded-full animate-ping opacity-25" />
+        <div class="w-24 h-24 rounded-full bg-brand-50 border-2 border-brand-200 flex items-center justify-center text-brand-600 shadow-sm relative">
+          <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <span class="text-xs font-black tracking-widest text-brand-600 uppercase">
+          ERROR 404: OPEN CIRCUIT
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-dark tracking-tight">
+          Looks Like This Board Isn't Connected.
+        </h1>
+        <p class="text-sm text-secondary leading-relaxed max-w-md mx-auto">
+          The page you're looking for doesn't exist, has broken traces, or may have moved to a different pinout.
+        </p>
+      </div>
+
+      <!-- Navigation Recovery Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs sm:text-sm shadow-md shadow-brand-500/20 transition-all duration-200"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span>Back to Home</span>
+        </a>
+
+        <a
+          href="/products"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-surface hover:bg-white text-dark font-semibold text-xs sm:text-sm border border-border hover:border-dark transition-all duration-200"
+        >
+          <span>Explore Products</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</PageLayout>

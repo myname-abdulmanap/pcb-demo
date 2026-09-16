@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120">
+  <rect width="520" height="120" fill="none"/>
+  <g transform="translate(8 10)" fill="none" stroke="#087F5B" stroke-width="8">
+    <circle cx="50" cy="50" r="43"/>
+    <path d="M50 7v18M50 75v18M7 50h18M75 50h18"/>
+    <path d="M29 29l13 13M58 58l13 13M71 29L58 42M42 58L29 71"/>
+    <rect x="34" y="34" width="32" height="32" rx="6"/>
+    <circle cx="50" cy="50" r="7" fill="#087F5B"/>
+  </g>
+  <text x="115" y="70" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#101828">PCB Indonesia</text>
+  <text x="117" y="98" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#667085">Connect Ideas. Build Tomorrow.</text>
+</svg>

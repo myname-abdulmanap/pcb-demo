@@ -1,0 +1,121 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { productsData } from '../../data/products';
+import ProductCard from '../../components/ProductCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTA from '../../components/CTA.astro';
+
+const breadcrumbs = [{ label: 'Products' }];
+---
+
+<PageLayout
+  title="Our Products & Services — PCB Fabrication & Assembly"
+  description="Explore PCB Indonesia's full suite of PCB manufacturing solutions: precision rigid & multilayer fabrication, turnkey PCBA, engineering design support, and rapid prototyping."
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: '/products' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-white border-b border-border py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumb items={breadcrumbs} />
+
+      <div class="max-w-3xl mt-4">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          WHAT WE DO
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-dark tracking-tight leading-tight">
+          High-Precision PCB Manufacturing Solutions
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+          From single-board proof of concept to high-volume multi-layer surface mount production, our modern facilities in Indonesia deliver enterprise-grade quality, strict IPC standards, and fast turnaround.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog Grid -->
+  <section class="py-16 lg:py-24 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {productsData.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Manufacturing Capabilities Summary Table -->
+  <section class="py-16 bg-white border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeader
+        eyebrow="CAPABILITY MATRIX"
+        heading="Standard Manufacturing Limits"
+        subtitle="Key manufacturing parameters across our standard and advanced production lines."
+      />
+
+      <div class="overflow-x-auto rounded-2xl border border-border shadow-card bg-white">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-surface border-b border-border text-dark font-bold">
+              <th class="py-3.5 px-5">Capability Parameter</th>
+              <th class="py-3.5 px-5 text-brand-700">Standard Line</th>
+              <th class="py-3.5 px-5 text-brand-700">Advanced / High-Tech Line</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border text-secondary">
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">Layer Count</td>
+              <td class="py-3.5 px-5">1 – 8 Layers</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">Up to 32 Layers (HDI)</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">Min. Trace Width / Spacing</td>
+              <td class="py-3.5 px-5">4 mil / 4 mil (0.1mm)</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">3 mil / 3 mil (0.075mm)</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">Min. CNC Mechanical Hole</td>
+              <td class="py-3.5 px-5">0.20mm (8 mil)</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">0.15mm (6 mil)</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">Min. Laser Microvia</td>
+              <td class="py-3.5 px-5">N/A</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">0.075mm (3 mil)</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">Copper Thickness</td>
+              <td class="py-3.5 px-5">0.5 oz – 2.0 oz</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">Up to 6.0 oz (Heavy Copper)</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">Board Thickness</td>
+              <td class="py-3.5 px-5">0.4mm – 2.4mm</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">0.2mm – 3.2mm</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">Surface Finishes</td>
+              <td class="py-3.5 px-5">HASL Lead-Free, OSP</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">ENIG, Immersion Silver, Hard Gold</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-5 font-medium text-dark">SMT Component Pitch</td>
+              <td class="py-3.5 px-5">0402 / 0.5mm IC Pitch</td>
+              <td class="py-3.5 px-5 font-semibold text-dark">01005 / 0.35mm BGA Pitch</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTA
+    heading="Need a Tailored PCB Manufacturing Solution?"
+    subtitle="Submit your Gerber data for instant DFM assessment and formal quotation."
+    primaryBtnText="Request a Quote"
+    primaryBtnHref="/quote"
+    secondaryBtnText="Contact Sales"
+    secondaryBtnHref="/contact"
+  />
+</PageLayout>

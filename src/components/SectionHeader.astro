@@ -1,0 +1,54 @@
+---
+export interface Props {
+  eyebrow?: string;
+  heading: string;
+  subtitle?: string;
+  align?: 'left' | 'center' | 'right';
+  theme?: 'light' | 'dark';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  heading,
+  subtitle,
+  align = 'left',
+  theme = 'light',
+  class: className = '',
+} = Astro.props;
+
+const alignmentClasses = {
+  left: 'text-left',
+  center: 'text-center mx-auto',
+  right: 'text-right ml-auto',
+};
+
+const isDark = theme === 'dark';
+---
+
+<div class:list={["max-w-3xl mb-10 sm:mb-12", alignmentClasses[align], className]}>
+  {eyebrow && (
+    <span class:list={[
+      "text-[11px] font-bold tracking-widest uppercase mb-2 block",
+      isDark ? "text-brand-300" : "text-brand-600"
+    ]}>
+      {eyebrow}
+    </span>
+  )}
+
+  <h2 class:list={[
+    "text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight",
+    isDark ? "text-white" : "text-dark"
+  ]}>
+    {heading}
+  </h2>
+
+  {subtitle && (
+    <p class:list={[
+      "mt-3 text-sm sm:text-base leading-relaxed",
+      isDark ? "text-white/80" : "text-secondary"
+    ]}>
+      {subtitle}
+    </p>
+  )}
+</div>

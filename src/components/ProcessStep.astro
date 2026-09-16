@@ -1,0 +1,39 @@
+---
+export interface Props {
+  step: number;
+  title: string;
+  description: string;
+  isLast?: boolean;
+}
+
+const { step, title, description, isLast = false } = Astro.props;
+---
+
+<div class="relative flex-1 flex flex-col items-start group">
+  <div class="flex items-center w-full mb-4">
+    <!-- Number Circle matching ui.png -->
+    <div class="w-10 h-10 rounded-full bg-brand-500 text-white font-bold text-sm flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-110 transition-transform duration-200 z-10">
+      {step}
+    </div>
+
+    <!-- Connecting line with arrow to next step -->
+    {!isLast && (
+      <div class="hidden lg:flex flex-1 items-center px-3">
+        <div class="h-0.5 w-full border-t-2 border-dashed border-border group-hover:border-brand-300 transition-colors" />
+        <svg class="w-3.5 h-3.5 text-secondary/60 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    )}
+  </div>
+
+  <!-- Content -->
+  <div>
+    <h3 class="text-sm sm:text-base font-bold text-dark group-hover:text-brand-600 transition-colors">
+      {title}
+    </h3>
+    <p class="text-xs text-secondary leading-relaxed mt-1.5 max-w-xs">
+      {description}
+    </p>
+  </div>
+</div>

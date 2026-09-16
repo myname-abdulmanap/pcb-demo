@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pcbindonesia.co.id/sitemap-index.xml

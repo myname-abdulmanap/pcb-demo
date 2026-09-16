@@ -1,0 +1,98 @@
+---
+import type { IndustryItem } from '../data/industries';
+
+export interface Props {
+  industry: IndustryItem;
+}
+
+const { industry } = Astro.props;
+---
+
+<div class="group bg-white rounded-2xl border border-border p-6 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+  <div>
+    <!-- Icon & Badge -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="w-12 h-12 rounded-xl bg-brand-50 border border-brand-200 text-brand-600 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+        {industry.icon === 'laptop' && (
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2" />
+            <line x1="8" y1="21" x2="16" y2="21" stroke-width="2" />
+            <line x1="12" y1="17" x2="12" y2="21" stroke-width="2" />
+          </svg>
+        )}
+        {industry.icon === 'cpu' && (
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h6v6H9zM9 1v3m6-3v3m-6 16v3m6-3v3M1 9h3m-3 6h3m16-6h3m-3 6h3" />
+          </svg>
+        )}
+        {industry.icon === 'wifi' && (
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+          </svg>
+        )}
+        {industry.icon === 'car' && (
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M7 17a2 2 0 11-4 0 2 2 0 014 0zm14 0a2 2 0 11-4 0 2 2 0 014 0zm-15-4l1.5-6h11l1.5 6M3 13h18v4H3v-4z" />
+          </svg>
+        )}
+        {industry.icon === 'radio' && (
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="2" stroke-width="2" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.24 7.76a6 6 0 010 8.49m-8.48-.01a6 6 0 010-8.49m11.31-2.82a10 10 0 010 14.14m-14.14 0a10 10 0 010-14.14" />
+          </svg>
+        )}
+        {industry.icon === 'heart-pulse' && (
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        )}
+        {industry.icon === 'sun' && (
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" stroke-width="2" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+        )}
+      </div>
+
+      <span class="text-[11px] font-semibold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-200">
+        Industry
+      </span>
+    </div>
+
+    <h3 class="text-lg font-bold text-dark group-hover:text-brand-600 transition-colors">
+      <a href={`/industries/${industry.slug}`}>
+        {industry.name}
+      </a>
+    </h3>
+
+    <p class="text-xs text-secondary leading-relaxed mt-2 line-clamp-3">
+      {industry.description}
+    </p>
+
+    <!-- Key standards tags -->
+    <div class="flex flex-wrap gap-1.5 mt-4">
+      {industry.keyStandards.slice(0, 3).map((std) => (
+        <span class="text-[10px] font-medium text-secondary bg-surface px-2 py-0.5 rounded border border-border">
+          {std}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- Footer Link -->
+  <div class="pt-5 border-t border-border/60 mt-5 flex items-center justify-between">
+    <span class="text-xs font-semibold text-dark group-hover:text-brand-600 transition-colors">
+      View Solutions
+    </span>
+    <a
+      href={`/industries/${industry.slug}`}
+      class="w-7 h-7 rounded-full bg-surface border border-border group-hover:bg-brand-500 group-hover:border-brand-500 group-hover:text-white text-secondary flex items-center justify-center transition-all"
+      aria-label={`View solutions for ${industry.name}`}
+    >
+      <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </a>
+  </div>
+</div>

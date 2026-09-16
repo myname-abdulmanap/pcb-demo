@@ -1,0 +1,56 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { industriesData } from '../../data/industries';
+import IndustryCard from '../../components/IndustryCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTA from '../../components/CTA.astro';
+
+const breadcrumbs = [{ label: 'Industries' }];
+---
+
+<PageLayout
+  title="Industries We Serve — Electronics Manufacturing & PCB Solutions"
+  description="Discover how PCB Indonesia powers innovation across Consumer Electronics, Industrial Automation, IoT, Automotive, Telecom, Medical, and Renewable Energy."
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: '/industries' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-white border-b border-border py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumb items={breadcrumbs} />
+
+      <div class="max-w-3xl mt-4">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          INDUSTRIES WE SERVE
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-dark tracking-tight leading-tight">
+          Powering Innovation Across Key Sectors
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+          From compact wearable micro-electronics to ruggedized industrial control units and mission-critical medical hardware, our specialized engineering processes are tailored to the unique regulatory and environmental demands of your sector.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries Grid -->
+  <section class="py-16 lg:py-24 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {industriesData.map((ind) => (
+          <IndustryCard industry={ind} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTA
+    heading="Building Hardware for a Specific Industry?"
+    subtitle="Our engineering team will assist with component sourcing, certification readiness, and volume scaling."
+    primaryBtnText="Consult an Industry Specialist"
+    primaryBtnHref="/contact"
+    secondaryBtnText="Get a Fast Quote"
+    secondaryBtnHref="/quote"
+  />
+</PageLayout>

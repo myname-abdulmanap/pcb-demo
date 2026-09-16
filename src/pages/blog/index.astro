@@ -1,0 +1,58 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BlogFilter from '../../components/react/BlogFilter';
+import CTA from '../../components/CTA.astro';
+
+const breadcrumbs = [{ label: 'Blog' }];
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const articlesForFilter = sortedPosts.map((post) => ({
+  slug: post.id ? post.id.replace(/\.md$/, '') : (post as any).slug,
+  title: post.data.title,
+  description: post.data.description,
+  pubDate: post.data.pubDate.toISOString(),
+  category: post.data.category,
+  featuredImage: post.data.featuredImage,
+  imageAlt: post.data.imageAlt,
+  author: post.data.author,
+}));
+---
+
+<PageLayout
+  title="Insights & Engineering Blog — PCB Indonesia"
+  description="Technical guides, fabrication tutorials, manufacturing processes, and sustainable electronics news from PCB Indonesia's engineering team."
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: '/blog' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-white border-b border-border py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumb items={breadcrumbs} />
+
+      <div class="max-w-3xl mt-4">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          INSIGHTS & UPDATES
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-dark tracking-tight leading-tight">
+          PCB & Hardware Engineering Blog
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+          Deep-dive technical guides, fabrication best practices, PCBA manufacturing workflows, and stories from the Indonesian electronics manufacturing ecosystem.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Listing with Interactive Filter Island -->
+  <section class="py-16 lg:py-24 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <BlogFilter articles={articlesForFilter} client:load />
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTA />
+</PageLayout>

@@ -1,0 +1,140 @@
+---
+import { siteConfig } from '../data/site';
+import { footerQuickLinks, footerServices } from '../data/navigation';
+import NewsletterForm from './react/NewsletterForm';
+---
+
+<footer class="bg-white border-t border-border mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-border">
+      <!-- Brand & Mission Column -->
+      <div class="lg:col-span-4 space-y-4">
+        <a href="/" class="inline-block focus:outline-none" aria-label="PCB Indonesia Home">
+          <img
+            src="/pcb-indonesia-logo.svg"
+            alt="PCB Indonesia Logo"
+            class="h-10 w-auto object-contain"
+            width="180"
+            height="42"
+          />
+        </a>
+        <p class="text-xs text-secondary leading-relaxed max-w-sm">
+          Empowering innovation through high-quality PCB manufacturing. One Board at a Time.
+        </p>
+        <div class="pt-2 text-xs text-secondary space-y-1">
+          <p><strong class="text-dark">Factory & Office:</strong> {siteConfig.address.street}</p>
+          <p>{siteConfig.address.city}, {siteConfig.address.province} {siteConfig.address.postalCode}</p>
+          <p><strong class="text-dark">Hours:</strong> {siteConfig.businessHours}</p>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="lg:col-span-2 space-y-3">
+        <h4 class="text-xs font-bold text-dark uppercase tracking-wider">Quick Links</h4>
+        <ul class="space-y-2 text-xs text-secondary">
+          {footerQuickLinks.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-brand-600 transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Our Services -->
+      <div class="lg:col-span-2 space-y-3">
+        <h4 class="text-xs font-bold text-dark uppercase tracking-wider">Our Services</h4>
+        <ul class="space-y-2 text-xs text-secondary">
+          {footerServices.map((service) => (
+            <li>
+              <a href={service.href} class="hover:text-brand-600 transition-colors">
+                {service.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Follow Us -->
+      <div class="lg:col-span-1 space-y-3">
+        <h4 class="text-xs font-bold text-dark uppercase tracking-wider">Follow Us</h4>
+        <div class="flex flex-col space-y-2.5">
+          <!-- LinkedIn -->
+          <a
+            href={siteConfig.socials.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-secondary hover:text-dark transition-colors flex items-center gap-2 text-xs"
+            aria-label="LinkedIn"
+          >
+            <svg class="w-4 h-4 text-dark" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+            </svg>
+            <span class="hidden lg:inline">LinkedIn</span>
+          </a>
+          <!-- YouTube -->
+          <a
+            href={siteConfig.socials.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-secondary hover:text-dark transition-colors flex items-center gap-2 text-xs"
+            aria-label="YouTube"
+          >
+            <svg class="w-4 h-4 text-dark" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/>
+            </svg>
+            <span class="hidden lg:inline">YouTube</span>
+          </a>
+          <!-- Instagram -->
+          <a
+            href={siteConfig.socials.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-secondary hover:text-dark transition-colors flex items-center gap-2 text-xs"
+            aria-label="Instagram"
+          >
+            <svg class="w-4 h-4 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke-width="2"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/>
+            </svg>
+            <span class="hidden lg:inline">Instagram</span>
+          </a>
+          <!-- X -->
+          <a
+            href={siteConfig.socials.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-secondary hover:text-dark transition-colors flex items-center gap-2 text-xs"
+            aria-label="X (Twitter)"
+          >
+            <svg class="w-4 h-4 text-dark" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span class="hidden lg:inline">X</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Newsletter Subscription Column -->
+      <div class="lg:col-span-3 space-y-3">
+        <h4 class="text-xs font-bold text-dark uppercase tracking-wider">Subscribe to Our Newsletter</h4>
+        <p class="text-xs text-secondary leading-relaxed">
+          Get the latest updates, tips, and electronics industry insights.
+        </p>
+        <NewsletterForm client:visible />
+      </div>
+    </div>
+
+    <!-- Bottom Bar: Copyright, Legal Links -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-secondary gap-4">
+      <p>© 2026 PCB Indonesia. All rights reserved.</p>
+      <div class="flex items-center space-x-6">
+        <a href="/about#privacy" class="hover:text-dark transition-colors">Privacy Policy</a>
+        <a href="/about#terms" class="hover:text-dark transition-colors">Terms of Service</a>
+        <a href="/sitemap-index.xml" class="hover:text-dark transition-colors">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>

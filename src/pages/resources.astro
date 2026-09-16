@@ -1,0 +1,175 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CTA from '../components/CTA.astro';
+
+const breadcrumbs = [{ label: 'Resources' }];
+---
+
+<PageLayout
+  title="Engineering Resources, Guidelines & Downloads — PCB Indonesia"
+  description="Technical design guidelines, standard multi-layer PCB stackups, DFM rules, and downloadable CAM engineering resources."
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: '/resources' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-white border-b border-border py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumb items={breadcrumbs} />
+
+      <div class="max-w-3xl mt-4">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          ENGINEERING TOOLS & GUIDES
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-dark tracking-tight leading-tight">
+          PCB Engineering Resources & Downloads
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+          Access our comprehensive Design for Manufacturability (DFM) guidelines, standard layer stackup calculators, and CAD export checklists to optimize your boards for production.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Sections -->
+  <section class="py-16 lg:py-24 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <!-- Quick Navigation Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="#guidelines" class="p-6 bg-white rounded-2xl border border-border shadow-card hover:shadow-card-hover transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center mb-4 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-dark group-hover:text-brand-600 transition-colors">DFM Guidelines</h3>
+          <p class="text-xs text-secondary mt-1">Clearance, annular rings, trace geometries, and solder mask rules.</p>
+        </a>
+
+        <a href="#stackups" class="p-6 bg-white rounded-2xl border border-border shadow-card hover:shadow-card-hover transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center mb-4 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-dark group-hover:text-brand-600 transition-colors">Standard Stackups</h3>
+          <p class="text-xs text-secondary mt-1">2, 4, 6, 8, and 10 layer prepreg and core dielectric thicknesses.</p>
+        </a>
+
+        <a href="/blog" class="p-6 bg-white rounded-2xl border border-border shadow-card hover:shadow-card-hover transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center mb-4 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-dark group-hover:text-brand-600 transition-colors">Blog & Articles</h3>
+          <p class="text-xs text-secondary mt-1">In-depth technical writeups and manufacturing tutorials.</p>
+        </a>
+
+        <a href="#faq" class="p-6 bg-white rounded-2xl border border-border shadow-card hover:shadow-card-hover transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center mb-4 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-dark group-hover:text-brand-600 transition-colors">Frequently Asked Questions</h3>
+          <p class="text-xs text-secondary mt-1">Turnaround times, MOQs, payment methods, and couriers.</p>
+        </a>
+      </div>
+
+      <!-- Section: DFM Guidelines -->
+      <div id="guidelines" class="bg-white rounded-3xl p-8 border border-border shadow-card space-y-6">
+        <h2 class="text-2xl font-bold text-dark flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-brand-500 text-white text-sm flex items-center justify-center font-bold">1</span>
+          Design for Manufacturability (DFM) Quick Reference
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm">
+          <div class="p-4 bg-surface rounded-xl border border-border space-y-2">
+            <h4 class="font-bold text-dark">Trace & Clearance</h4>
+            <p class="text-secondary text-xs">Standard minimum: 4 mil / 4 mil. Advanced HDI lines support down to 3 mil (0.075mm) on 0.5 oz copper.</p>
+          </div>
+          <div class="p-4 bg-surface rounded-xl border border-border space-y-2">
+            <h4 class="font-bold text-dark">Annular Ring</h4>
+            <p class="text-secondary text-xs">Minimum pad-to-hole annular ring is 4 mil (0.1mm) to prevent breakout during mechanical CNC drilling.</p>
+          </div>
+          <div class="p-4 bg-surface rounded-xl border border-border space-y-2">
+            <h4 class="font-bold text-dark">Solder Mask Dam</h4>
+            <p class="text-secondary text-xs">Minimum solder mask bridge is 3 mil between adjacent pads to prevent bridging during wave or reflow soldering.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Standard Stackups -->
+      <div id="stackups" class="bg-white rounded-3xl p-8 border border-border shadow-card space-y-6">
+        <h2 class="text-2xl font-bold text-dark flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-brand-500 text-white text-sm flex items-center justify-center font-bold">2</span>
+          Standard 4-Layer & 6-Layer Stackups
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          <!-- 4 Layer -->
+          <div class="p-5 bg-surface rounded-xl border border-border space-y-3">
+            <div class="flex justify-between items-center font-bold text-dark border-b border-border pb-2">
+              <span>Standard 4-Layer (1.6mm FR-4)</span>
+              <span class="text-brand-700">Finished: 1.6mm ±10%</span>
+            </div>
+            <ul class="space-y-1.5 text-secondary">
+              <li>• L1 (Top): Copper 1.0 oz (35um) — Signal / High-speed</li>
+              <li>• Prepreg 2116 / 7628 (~0.2mm)</li>
+              <li>• L2: Copper 1.0 oz (35um) — Solid Ground Plane (GND)</li>
+              <li>• FR-4 Core 1.0mm</li>
+              <li>• L3: Copper 1.0 oz (35um) — Power Plane (VCC)</li>
+              <li>• Prepreg 2116 / 7628 (~0.2mm)</li>
+              <li>• L4 (Bottom): Copper 1.0 oz (35um) — Signal</li>
+            </ul>
+          </div>
+
+          <!-- 6 Layer -->
+          <div class="p-5 bg-surface rounded-xl border border-border space-y-3">
+            <div class="flex justify-between items-center font-bold text-dark border-b border-border pb-2">
+              <span>Standard 6-Layer (1.6mm FR-4)</span>
+              <span class="text-brand-700">Finished: 1.6mm ±10%</span>
+            </div>
+            <ul class="space-y-1.5 text-secondary">
+              <li>• L1: Signal (Top)</li>
+              <li>• L2: Solid Ground Plane (GND)</li>
+              <li>• L3: Inner Signal 1 (Stripline)</li>
+              <li>• L4: Power Plane (VCC)</li>
+              <li>• L5: Solid Ground Plane (GND)</li>
+              <li>• L6: Signal (Bottom)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: FAQ -->
+      <div id="faq" class="bg-white rounded-3xl p-8 border border-border shadow-card space-y-6">
+        <h2 class="text-2xl font-bold text-dark flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-brand-500 text-white text-sm flex items-center justify-center font-bold">3</span>
+          Frequently Asked Questions
+        </h2>
+
+        <div class="space-y-4">
+          <div class="p-4 bg-surface rounded-xl border border-border">
+            <h4 class="font-bold text-dark text-sm mb-1">What is the minimum order quantity (MOQ)?</h4>
+            <p class="text-xs text-secondary leading-relaxed">For prototype PCB fabrication, our MOQ starts at just 5 pieces. For mass production, we have dedicated automated lines supporting volumes up to 100,000+ boards per month.</p>
+          </div>
+
+          <div class="p-4 bg-surface rounded-xl border border-border">
+            <h4 class="font-bold text-dark text-sm mb-1">How do you deliver across Indonesia?</h4>
+            <p class="text-xs text-secondary leading-relaxed">We ship using reliable express logistics partners (JNE YES, SiCepat, DHL Express, and dedicated courier dispatch in Jabodetabek) ensuring next-day delivery to major Indonesian tech hubs.</p>
+          </div>
+
+          <div class="p-4 bg-surface rounded-xl border border-border">
+            <h4 class="font-bold text-dark text-sm mb-1">Do you accept Indonesian Rupiah (IDR) and local corporate invoicing?</h4>
+            <p class="text-xs text-secondary leading-relaxed">Yes! All quotes can be issued in Indonesian Rupiah (IDR) with official Faktur Pajak (PPN 11%) and standard enterprise purchase order (PO) net payment terms for approved corporate accounts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTA />
+</PageLayout>

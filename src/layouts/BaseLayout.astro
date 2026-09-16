@@ -1,0 +1,77 @@
+---
+import SEO from '../components/SEO.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: 'website' | 'article' | 'product';
+  keywords?: string[];
+  article?: {
+    publishedTime: string;
+    modifiedTime?: string;
+    author: string;
+    tags?: string[];
+  };
+  breadcrumbs?: Array<{
+    name: string;
+    item: string;
+  }>;
+  product?: {
+    name: string;
+    description: string;
+    category?: string;
+  };
+}
+
+const {
+  title,
+  description,
+  image,
+  canonical,
+  type = 'website',
+  keywords,
+  article,
+  breadcrumbs,
+  product,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonical}
+      type={type}
+      keywords={keywords}
+      article={article}
+      breadcrumbs={breadcrumbs}
+      product={product}
+    />
+  </head>
+  <body class="bg-[#F8FAF9] text-dark antialiased selection:bg-brand-100 selection:text-brand-900 min-h-screen flex flex-col">
+    <!-- Accessible Skip to Content -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-brand-500 text-white rounded-lg font-semibold text-xs shadow-lg"
+    >
+      Skip to main content
+    </a>
+
+    <slot />
+  </body>
+</html>

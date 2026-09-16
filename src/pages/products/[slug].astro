@@ -1,0 +1,306 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { productsData, type ProductItem } from '../../data/products';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import CTA from '../../components/CTA.astro';
+
+export async function getStaticPaths() {
+  return productsData.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: ProductItem;
+}
+
+const { product } = Astro.props;
+
+const breadcrumbs = [
+  { label: 'Products', href: '/products' },
+  { label: product.title },
+];
+
+const relatedProducts = productsData.filter((p) => p.slug !== product.slug).slice(0, 3);
+---
+
+<PageLayout
+  title={`${product.title} — PCB Manufacturing Solutions`}
+  description={product.description}
+  image={product.image.src}
+  type="product"
+  product={{
+    name: product.title,
+    description: product.description,
+    category: "PCB Manufacturing",
+  }}
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: b.href || '' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-white border-b border-border py-10 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumb items={breadcrumbs} />
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mt-6">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block">
+            PCB INDONESIA PRODUCTS & SERVICES
+          </span>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark tracking-tight leading-tight">
+            {product.title}
+          </h1>
+
+          <p class="text-base sm:text-lg text-secondary leading-relaxed">
+            {product.overview}
+          </p>
+
+          <!-- Highlights Pills -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+            {product.highlights.map((item) => (
+              <div class="flex items-center gap-2 text-xs font-semibold text-dark">
+                <div class="w-4 h-4 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4 pt-4">
+            <a
+              href="/quote"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs sm:text-sm shadow-md shadow-brand-500/20 transition-all duration-200 hover:-translate-y-0.5"
+            >
+              <span>Get a Quote for {product.shortTitle}</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+
+            <a
+              href="/contact"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-surface hover:bg-white text-dark font-semibold text-xs sm:text-sm border border-border transition-all duration-200"
+            >
+              <span>Consult an Engineer</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="lg:col-span-5">
+          <div class="rounded-3xl overflow-hidden shadow-card border border-border aspect-[16/11]">
+            <img
+              src={product.image.src}
+              alt={product.image.alt}
+              class="w-full h-full object-cover"
+              width="700"
+              height="480"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Specifications & Capabilities -->
+  <section class="py-16 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <!-- Specifications Table (Left Column) -->
+        <div class="lg:col-span-7 space-y-4">
+          <h2 class="text-2xl font-extrabold text-dark tracking-tight">
+            Technical Specifications
+          </h2>
+          <p class="text-xs sm:text-sm text-secondary">
+            Manufacturing limits, tolerances, and certified testing standards for {product.title}.
+          </p>
+
+          <div class="overflow-hidden rounded-2xl border border-border shadow-card bg-white mt-4">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <tbody class="divide-y divide-border">
+                {product.specifications.map((spec) => (
+                  <tr class="hover:bg-surface/50 transition-colors">
+                    <td class="py-3.5 px-5 font-semibold text-dark w-2/5 bg-surface/30">
+                      {spec.label}
+                    </td>
+                    <td class="py-3.5 px-5 text-secondary font-medium">
+                      {spec.value}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Capabilities Checklist & Applications (Right Column) -->
+        <div class="lg:col-span-5 space-y-6">
+          <!-- Capabilities Card -->
+          <div class="bg-white rounded-2xl border border-border p-6 shadow-card space-y-4">
+            <h3 class="text-lg font-bold text-dark flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+              <span>Key Capabilities</span>
+            </h3>
+
+            <div class="space-y-2.5">
+              {product.capabilities.map((cap) => (
+                <div class="flex items-start gap-2 text-xs text-secondary">
+                  <div class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-1.5 flex-shrink-0" />
+                  <span class="font-medium text-dark/90">{cap}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Applications Card -->
+          <div class="bg-white rounded-2xl border border-border p-6 shadow-card space-y-4">
+            <h3 class="text-lg font-bold text-dark flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span>Typical Applications</span>
+            </h3>
+
+            <div class="space-y-2.5">
+              {product.applications.map((app) => (
+                <div class="flex items-start gap-2 text-xs text-secondary">
+                  <svg class="w-3.5 h-3.5 text-brand-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{app}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Benefits -->
+  <section class="py-16 bg-white border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          WHY CHOOSE US
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-dark tracking-tight">
+          The PCB Indonesia Advantage
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {product.benefits.map((benefit, idx) => (
+          <div class="bg-surface rounded-2xl p-6 border border-border hover:border-brand-300 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-700 font-bold text-xs flex items-center justify-center mb-4">
+                0{idx + 1}
+              </div>
+              <h3 class="text-base font-bold text-dark mb-2">
+                {benefit.title}
+              </h3>
+              <p class="text-xs text-secondary leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Manufacturing Process Pipeline -->
+  <section class="py-16 bg-[#F8FAF9] border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          WORKFLOW
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-dark tracking-tight">
+          Production & Quality Control Steps
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {product.process.map((step) => (
+          <div class="bg-white rounded-2xl p-6 border border-border shadow-card flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-brand-500 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-sm">
+              {step.step}
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-dark">{step.title}</h3>
+              <p class="text-xs text-secondary leading-relaxed mt-1">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Frequently Asked Questions -->
+  <section class="py-16 bg-white border-t border-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase block mb-2">
+          FAQ
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-dark tracking-tight">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        {product.faqs.map((faq) => (
+          <div class="rounded-2xl border border-border p-6 bg-surface">
+            <h3 class="text-sm sm:text-base font-bold text-dark mb-2 flex items-center gap-2">
+              <span class="text-brand-600 font-extrabold">Q:</span>
+              <span>{faq.question}</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-secondary leading-relaxed pl-6">
+              {faq.answer}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  <section class="py-16 bg-[#F8FAF9] border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <h2 class="text-2xl font-extrabold text-dark tracking-tight">
+            Explore Other Services
+          </h2>
+          <p class="text-xs text-secondary mt-1">Complementary electronics solutions for your hardware project.</p>
+        </div>
+        <a href="/products" class="text-xs font-bold text-brand-600 hover:text-brand-700 transition-colors">
+          View All Products →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {relatedProducts.map((prod) => (
+          <ProductCard product={prod} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTA
+    heading={`Ready to Fabricate with ${product.title}?`}
+    subtitle="Upload your Gerber files now for a fast turnaround quotation and engineering feedback."
+    primaryBtnText="Request a Quote"
+    primaryBtnHref="/quote"
+  />
+</PageLayout>

@@ -1,0 +1,209 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { capabilitiesData } from '../data/capabilities';
+import CapabilityCard from '../components/CapabilityCard.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CTA from '../components/CTA.astro';
+
+const breadcrumbs = [{ label: 'Capabilities' }];
+
+const fabCapabilities = capabilitiesData.filter(c => c.category === 'fabrication');
+const assemblyCapabilities = capabilitiesData.filter(c => c.category === 'assembly');
+const testingCapabilities = capabilitiesData.filter(c => c.category === 'testing');
+---
+
+<PageLayout
+  title="Manufacturing Capabilities & Quality Standards — PCB Indonesia"
+  description="Explore our high-precision PCB fabrication and assembly capabilities: 1-32 layers, HDI laser microvias, 01005 SMT placement, 3D AOI & X-Ray inspection."
+  breadcrumbs={breadcrumbs.map(b => ({ name: b.label, item: '/capabilities' }))}
+>
+  <!-- Hero Section -->
+  <section class="bg-[#073827] bg-circuit-dark text-white py-16 lg:py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-white/70 text-xs">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span class="mx-2 text-white/40">/</span>
+        <span class="text-white font-semibold">Capabilities</span>
+      </div>
+
+      <div class="max-w-3xl mt-6">
+        <span class="text-xs font-bold tracking-widest text-brand-300 uppercase block mb-3">
+          BUILT FOR PRECISION. READY FOR PRODUCTION.
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+          Advanced Electronics Manufacturing Capabilities
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-brand-100/80 leading-relaxed">
+          From micro-pitch surface mount assemblies to 32-layer impedance-controlled high-speed backplanes, our Indonesian facility operates with micron-level tolerances and rigorous IPC Class 3 quality protocols.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a
+            href="/quote"
+            class="px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-semibold text-xs sm:text-sm shadow-lg transition-all"
+          >
+            Request Quotation
+          </a>
+          <a
+            href="#tolerances"
+            class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-all"
+          >
+            View Tolerance Matrix
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Sections -->
+  <section class="py-16 bg-[#F8FAF9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <!-- Fabrication Capabilities -->
+      <div>
+        <div class="border-b border-border pb-4 mb-8">
+          <h2 class="text-2xl font-extrabold text-dark tracking-tight">
+            PCB Fabrication Capabilities
+          </h2>
+          <p class="text-xs sm:text-sm text-secondary mt-1">Rigid, Multilayer, HDI, and Flexible circuits built to exacting standards.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {fabCapabilities.map((cap) => (
+            <CapabilityCard capability={cap} />
+          ))}
+        </div>
+      </div>
+
+      <!-- Assembly Capabilities -->
+      <div>
+        <div class="border-b border-border pb-4 mb-8">
+          <h2 class="text-2xl font-extrabold text-dark tracking-tight">
+            PCB Assembly & Surface Mount (PCBA)
+          </h2>
+          <p class="text-xs sm:text-sm text-secondary mt-1">Automated high-speed SMT pick-and-place lines and selective soldering.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {assemblyCapabilities.map((cap) => (
+            <CapabilityCard capability={cap} />
+          ))}
+        </div>
+      </div>
+
+      <!-- Testing & QA Capabilities -->
+      <div>
+        <div class="border-b border-border pb-4 mb-8">
+          <h2 class="text-2xl font-extrabold text-dark tracking-tight">
+            Quality Inspection & Testing Protocols
+          </h2>
+          <p class="text-xs sm:text-sm text-secondary mt-1">100% automated optical, X-ray, and in-circuit testing for zero-defect reliability.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {testingCapabilities.map((cap) => (
+            <CapabilityCard capability={cap} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Tolerance Matrix Table -->
+  <section id="tolerances" class="py-16 bg-white border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeader
+        eyebrow="TOLERANCES & GUIDELINES"
+        heading="Technical Manufacturing Parameters"
+        subtitle="Complete reference for hardware engineers and CAM layout designers."
+      />
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Fabrication Limits -->
+        <div class="bg-surface rounded-2xl p-6 border border-border">
+          <h3 class="text-base font-bold text-dark mb-4 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-500" />
+            Fabrication Tolerances
+          </h3>
+          <table class="w-full text-xs">
+            <tbody class="divide-y divide-border/60">
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Layer Count</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">1 – 32 Layers</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Board Thickness Range</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">0.2mm – 3.2mm (±10%)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Min. Trace Width / Spacing</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">3 mil / 3 mil (0.075mm)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Min. Mechanical Drill</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">0.15mm (6 mil)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Min. Laser Microvia</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">0.075mm (3 mil)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Max. Copper Thickness</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">6.0 oz (Inner & Outer)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Controlled Impedance</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">±5% Tolerance (TDR verified)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Assembly Limits -->
+        <div class="bg-surface rounded-2xl p-6 border border-border">
+          <h3 class="text-base font-bold text-dark mb-4 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-500" />
+            Assembly Tolerances
+          </h3>
+          <table class="w-full text-xs">
+            <tbody class="divide-y divide-border/60">
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Smallest SMT Package</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">01005 (0.4mm x 0.2mm)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Min. BGA Pitch</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">0.35mm (with 3D X-Ray)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Max. Panel Dimension</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">510mm x 460mm</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Placement Accuracy</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">±0.03mm (3 sigma)</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Soldering Standards</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">IPC-A-610 Class 2 & Class 3</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Solder Stencil Technology</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">Laser-cut Stainless Nano-coated</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 font-medium text-dark">Conformal Coating</td>
+                <td class="py-2.5 text-secondary text-right font-semibold">Silicone, Acrylic, Polyurethane</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTA
+    heading="Have a High-Complexity Board to Produce?"
+    subtitle="Our CAM engineering department will review your schematics and layer stackup free of charge."
+    primaryBtnText="Upload Gerber for DFM Review"
+    primaryBtnHref="/quote"
+  />
+</PageLayout>
