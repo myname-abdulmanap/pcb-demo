@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 interface SearchItem {
   title: string;
@@ -31,7 +32,12 @@ const searchableData: SearchItem[] = [
 export default function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -78,7 +84,7 @@ export default function Search() {
         </svg>
       </button>
 
-      {isOpen && (
+      {mounted && typeof document !== 'undefined' && isOpen && createPortal(
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/40 backdrop-blur-sm animate-fade-in">
           <div
             className="w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-border overflow-hidden transform transition-all"
@@ -145,7 +151,8 @@ export default function Search() {
               <span>PCB Indonesia</span>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
