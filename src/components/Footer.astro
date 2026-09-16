@@ -18,28 +18,54 @@ import NewsletterForm from './react/NewsletterForm';
             height="42"
           />
         </a>
-        <p class="text-xs text-secondary leading-relaxed max-w-sm">
+        <p
+          data-i18n-en="Empowering Indonesian hardware innovation with precision multi-layer PCB fabrication, rapid SMT assembly, and IPC Class 3 certified inspection."
+          data-i18n-id="Memberdayakan inovasi hardware Indonesia dengan fabrikasi PCB multi-layer presisi tinggi, perakitan SMT cepat, dan inspeksi terstandarisasi IPC Kelas 3."
+          class="text-xs text-secondary leading-relaxed max-w-sm"
+        >
           Empowering Indonesian hardware innovation with precision multi-layer PCB fabrication, rapid SMT assembly, and IPC Class 3 certified inspection.
         </p>
         <div class="pt-2 text-xs text-secondary space-y-1.5 border-t border-border/60">
           <p>
-            <strong class="text-dark font-mono text-[11px] uppercase tracking-wider block text-brand-700">Pabrik & Kantor Pusat (Bogor):</strong>
+            <strong
+              data-i18n-en="Factory & Headquarters (Bogor):"
+              data-i18n-id="Pabrik & Kantor Pusat (Bogor):"
+              class="text-dark font-mono text-[11px] uppercase tracking-wider block text-brand-700"
+            >
+              Factory & Headquarters (Bogor):
+            </strong>
             <span>{siteConfig.address.street}</span>
           </p>
           <p>{siteConfig.address.city}, {siteConfig.address.province} {siteConfig.address.postalCode}, Indonesia</p>
           <p class="text-[11px] text-secondary/80 font-mono pt-0.5">
-            <span class="text-dark font-semibold">Operasional:</span> {siteConfig.businessHours}
+            <span
+              data-i18n-en="Hours:"
+              data-i18n-id="Jam Operasional:"
+              class="text-dark font-semibold"
+            >
+              Hours:
+            </span> {siteConfig.businessHours}
           </p>
         </div>
       </div>
 
       <!-- Quick Links -->
       <div class="lg:col-span-2 space-y-3">
-        <h4 class="text-xs font-bold font-mono text-dark uppercase tracking-wider">Quick Links</h4>
+        <h4
+          data-i18n-en="Quick Links"
+          data-i18n-id="Tautan Cepat"
+          class="text-xs font-bold font-mono text-dark uppercase tracking-wider"
+        >
+          Quick Links
+        </h4>
         <ul class="space-y-2 text-xs text-secondary font-medium">
           {footerQuickLinks.map((link) => (
             <li>
-              <a href={link.href} class="hover:text-brand-600 transition-colors">
+              <a
+                href={link.href}
+                data-nav-link={link.label}
+                class="hover:text-brand-600 transition-colors"
+              >
                 {link.label}
               </a>
             </li>
@@ -49,11 +75,21 @@ import NewsletterForm from './react/NewsletterForm';
 
       <!-- Our Services -->
       <div class="lg:col-span-2 space-y-3">
-        <h4 class="text-xs font-bold font-mono text-dark uppercase tracking-wider">Our Services</h4>
+        <h4
+          data-i18n-en="Our Services"
+          data-i18n-id="Layanan Kami"
+          class="text-xs font-bold font-mono text-dark uppercase tracking-wider"
+        >
+          Our Services
+        </h4>
         <ul class="space-y-2 text-xs text-secondary font-medium">
           {footerServices.map((service) => (
             <li>
-              <a href={service.href} class="hover:text-brand-600 transition-colors">
+              <a
+                href={service.href}
+                data-nav-link={service.label}
+                class="hover:text-brand-600 transition-colors"
+              >
                 {service.label}
               </a>
             </li>
@@ -64,9 +100,19 @@ import NewsletterForm from './react/NewsletterForm';
       <!-- Follow Us / Social Media Icons (Rapih, Visible, Branded) -->
       <div class="lg:col-span-4 space-y-4">
         <div>
-          <h4 class="text-xs font-bold font-mono text-dark uppercase tracking-wider">Connect & Social Media</h4>
-          <p class="text-[11px] text-secondary mt-1">
-            Ikuti informasi terkini, studi kasus teknis, dan pembaruan industri PCB.
+          <h4
+            data-i18n-en="Connect & Social Media"
+            data-i18n-id="Koneksi & Media Sosial"
+            class="text-xs font-bold font-mono text-dark uppercase tracking-wider"
+          >
+            Connect & Social Media
+          </h4>
+          <p
+            data-i18n-en="Follow our latest updates, technical case studies, and electronics industry news."
+            data-i18n-id="Ikuti informasi terkini, studi kasus teknis, dan pembaruan industri PCB."
+            class="text-[11px] text-secondary mt-1"
+          >
+            Follow our latest updates, technical case studies, and electronics industry news.
           </p>
         </div>
 
@@ -158,11 +204,37 @@ import NewsletterForm from './react/NewsletterForm';
 
     <!-- Bottom Bar: Copyright & Legal Links -->
     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-secondary gap-4">
-      <p>© 2026 PCB Indonesia (PT PCB Teknologi Indonesia) — Bogor, Jawa Barat. All rights reserved.</p>
+      <p
+        data-i18n-en="© 2026 PCB Indonesia (PT PCB Teknologi Indonesia) — Bogor, West Java. All rights reserved."
+        data-i18n-id="© 2026 PCB Indonesia (PT PCB Teknologi Indonesia) — Bogor, Jawa Barat. Hak cipta dilindungi undang-undang."
+      >
+        © 2026 PCB Indonesia (PT PCB Teknologi Indonesia) — Bogor, West Java. All rights reserved.
+      </p>
       <div class="flex items-center space-x-6">
-        <a href="/about#privacy" class="hover:text-dark transition-colors">Privacy Policy</a>
-        <a href="/about#terms" class="hover:text-dark transition-colors">Terms of Service</a>
-        <a href="/sitemap-index.xml" class="hover:text-dark transition-colors">Sitemap</a>
+        <a
+          href="/about#privacy"
+          data-i18n-en="Privacy Policy"
+          data-i18n-id="Kebijakan Privasi"
+          class="hover:text-dark transition-colors"
+        >
+          Privacy Policy
+        </a>
+        <a
+          href="/about#terms"
+          data-i18n-en="Terms of Service"
+          data-i18n-id="Ketentuan Layanan"
+          class="hover:text-dark transition-colors"
+        >
+          Terms of Service
+        </a>
+        <a
+          href="/sitemap-index.xml"
+          data-i18n-en="Sitemap"
+          data-i18n-id="Peta Situs"
+          class="hover:text-dark transition-colors"
+        >
+          Sitemap
+        </a>
       </div>
     </div>
   </div>

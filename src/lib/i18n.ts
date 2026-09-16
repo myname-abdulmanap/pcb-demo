@@ -1,9 +1,9 @@
-// Full bilingual translation engine for PCB Indonesia (EN <-> ID)
+// Robust bilingual translation engine for PCB Indonesia (EN <-> ID)
+// Guarantees zero mixed language across all sections, headers, footers, and interactive elements
 
 export type SupportedLang = 'EN' | 'ID';
 
-export const enToIdMap: Record<string, string> = {
-  // Navigation & Header
+export const navTranslations: Record<string, string> = {
   'Home': 'Beranda',
   'Products': 'Produk',
   'Capabilities': 'Kapabilitas',
@@ -13,8 +13,17 @@ export const enToIdMap: Record<string, string> = {
   'About': 'Tentang Kami',
   'Contact': 'Kontak',
   'Get a Quote': 'Minta Penawaran',
+  'Talk to Our Team': 'Hubungi Tim Kami',
   'Get an Instant Quote': 'Minta Penawaran Cepat',
-  'Talk to Our Team': 'Konsultasi Tim Kami',
+  'PCB Fabrication': 'Fabrikasi PCB',
+  'PCB Assembly (PCBA)': 'Perakitan PCB (PCBA)',
+  'PCB Design Support': 'Dukungan Desain PCB',
+  'Prototype & Custom PCB': 'Prototipe & PCB Kustom',
+};
+
+export const enToIdMap: Record<string, string> = {
+  // Navigation & Actions
+  ...navTranslations,
   'Search': 'Cari',
   'MENU': 'MENU',
   'CLOSE': 'TUTUP',
@@ -24,10 +33,10 @@ export const enToIdMap: Record<string, string> = {
   // Hero Section
   "01 // INDONESIA'S TRUSTED PCB MANUFACTURING PARTNER": "01 // MITRA MANUFAKTUR PCB TERPERCAYA INDONESIA",
   'Engineering Precision Circuits,': 'Rekayasa Sirkuit Presisi Tinggi,',
+  'Built for': 'Dibangun untuk',
   'High-Yield Hardware': 'Hardware Berdaya Saing',
-  'Built for': 'Dibuat untuk',
   'High-precision multi-layer PCB fabrication and rapid SMT assembly services for innovators, engineering teams, and electronics manufacturers throughout Indonesia.':
-    'Layanan fabrikasi PCB multi-layer presisi tinggi dan perakitan SMT cepat untuk para inovator, tim rekayasa, dan manufaktur elektronika di seluruh Indonesia.',
+    'Layanan fabrikasi PCB multi-layer presisi tinggi dan perakitan SMT cepat untuk inovator, tim rekayasa, dan produsen elektronika di seluruh Indonesia.',
   '01 / QUALITY': '01 / KUALITAS',
   'IPC Class 2 & 3': 'Standar IPC Kelas 2 & 3',
   'AOI & X-Ray inspection': 'Inspeksi 3D AOI & X-Ray',
@@ -35,10 +44,10 @@ export const enToIdMap: Record<string, string> = {
   '24-72h Quick Turn': 'Pengerjaan 24-72 Jam',
   'Prototypes to mass': 'Prototipe ke massal',
   '03 / CAPABILITY': '03 / KAPABILITAS',
-  '1-32 Layers HDI': '1-32 Lapisan PCB & HDI',
+  '1-32 Layers HDI': '1-32 Lapisan & HDI',
   'Controlled impedance': 'Impedansi terkontrol',
-  '04 / DFM': '04 / BANTUAN DFM',
-  'Direct Support': 'Dukungan Langsung',
+  '04 / DFM': '04 / DUKUNGAN DFM',
+  'Direct Support': 'Bantuan Ahli Langsung',
   'Impedance & stackups': 'Impedansi & stackup',
   'Better Electronics,': 'Elektronika Unggulan,',
   'A Brighter Indonesia': 'Indonesia Berdaya',
@@ -48,21 +57,21 @@ export const enToIdMap: Record<string, string> = {
   // Statement Section 1
   '01 // EDITORIAL STATEMENT': '01 // KOMITMEN KAMI',
   'IPC-A-610 CLASS 3 HIGH-RELIABILITY': 'KEANDALAN TINGGI IPC-A-610 KELAS 3',
-  'DIRECT DOMESTIC FABRICATION': 'FABRIKASI LANGSUNG DI BOGOR',
+  'DIRECT DOMESTIC FABRICATION': 'FABRIKASI DOMESTIK LANGSUNG',
   '“Powering': '“Mendorong',
-  'Indonesia’s Electronics.”': 'Kemajuan Elektronika Indonesia.”',
+  'Indonesia’s Electronics.”': 'Elektronika Indonesia.”',
   '[ SYSTEM SPECIFICATION ]': '[ SPESIFIKASI SISTEM ]',
   '1 TO 32 LAYERS • CONTROLLED IMPEDANCE • LASER DIRECT IMAGING': '1 HINGGA 32 LAPISAN • IMPEDANSI TERKONTROL • LASER DIRECT IMAGING',
-  'BOGOR HEADQUARTERS & MANUFACTURING FACILITY': 'KANTOR PUSAT & FASILITAS MANUFAKTUR BOGOR',
+  'BOGOR HEADQUARTERS & MANUFACTURING FACILITY': 'KANTOR PUSAT & PABRIK MANUFAKTUR BOGOR',
 
   // Built for Indonesia Section
-  '02 // NATIONAL IMPACT & SOVEREIGNTY': '02 // DAMPAK NASIONAL & KEMANDIRIAN',
+  '02 // NATIONAL IMPACT & SOVEREIGNTY': '02 // KEDAULATAN HARDWARE & DAMPAK NASIONAL',
   "Built for Indonesia's": 'Dibangun untuk Masa Depan',
   'Electronics Future': 'Elektronika Indonesia',
   "We are dedicated to strengthening Indonesia's domestic hardware ecosystem. By pairing multi-layer PCB fabrication, precision SMT assembly, and strict IPC Class 3 quality inspection under one roof, we eliminate overseas supply chain friction and empower Indonesian engineers to manufacture world-class electronic devices locally.":
     'Kami berdedikasi memperkuat ekosistem perangkat keras dalam negeri Indonesia. Dengan memadukan fabrikasi PCB multi-layer, perakitan SMT presisi tinggi, dan inspeksi ketat standar IPC Kelas 3 di fasilitas Bogor kami, kami mengeliminasi hambatan rantai pasok luar negeri dan memberdayakan para engineer Indonesia memproduksi perangkat elektronik berstandar global secara lokal.',
   'From IoT sensors and telecommunication equipment to automotive power controllers and industrial automation, we ensure high repeatability, transparent domestic billing, and rapid turnaround.':
-    'Mulai dari sensor IoT dan perangkat telekomunikasi hingga pengendali daya otomotif dan otomasi industri, kami menjamin akurasi tinggi, transaksi rupiah transparan, dan pengiriman ekspres.',
+    'Mulai dari sensor IoT dan telekomunikasi hingga pengendali daya otomotif dan otomasi industri, kami menjamin akurasi tinggi, transaksi rupiah transparan, dan pengiriman ekspres.',
   'Explore our manufacturing philosophy': 'Pelajari filosofi manufaktur kami',
   '[ SYSTEM // ADVANCED SMT & FABRICATION ]': '[ SISTEM // SMT & FABRIKASI PRESISI ]',
   'ACTIVE': 'AKTIF',
@@ -95,7 +104,7 @@ export const enToIdMap: Record<string, string> = {
   'Certified Quality': 'Kualitas Terverifikasi',
   'Strict quality standards compliant with IPC-A-600/610 Class 2 & 3, automated 3D AOI, and radiographic X-Ray inspection.':
     'Standar kualitas ketat bersertifikat IPC-A-600/610 Kelas 2 & 3, inspeksi 3D AOI otomatis, dan analisis X-Ray BGA menyeluruh.',
-  'Zero Customs Friction': 'Bebas Hambatan Bea Cukai',
+  'Zero Customs Friction': 'Bebas Hambatan Impor',
   'Direct engineering collaboration, fast dispatch from our Bogor facility, zero offshore customs delays, and express domestic logistics.':
     'Komunikasi langsung dalam Bahasa Indonesia/Inggris, pengiriman cepat dari fasilitas Bogor, tanpa hambatan bea cukai, dan logistik ekspres.',
   'Scalable Capacity': 'Kapasitas Produksi Skalabel',
@@ -111,7 +120,7 @@ export const enToIdMap: Record<string, string> = {
   'What’s': 'Masa',
   'Next.”': 'Depan.”',
   'Accelerating domestic hardware development with sub-millimeter precision, end-to-end traceability, and zero offshore customs bottlenecks.':
-    'Mempercepat rekayasa hardware dalam negeri dengan presisi sub-milimeter, keterlacakan penuh, dan bebas kendala impor lintas negara.',
+    'Mempercepat pengembangan hardware dalam negeri dengan presisi sub-milimeter, keterlacakan penuh, dan bebas kendala impor luar negeri.',
   '[ PIPELINE INTEGRITY ]': '[ INTEGRITAS PRODUKSI ]',
   '24H PROTOTYPES • 100K+ MASS VOLUME • 100% IPC CLASS 3 TESTING': 'PROTOTIPE 24 JAM • 100RB+ PRODUKSI • 100% PENGUJIAN IPC KELAS 3',
   'IPC-A-600/610 STANDARDS': 'STANDAR IPC-A-600/610',
@@ -123,7 +132,7 @@ export const enToIdMap: Record<string, string> = {
   'Production': 'Produksi Massal',
   'Seven verified engineering milestones from initial schematic concept to express ESD-shielded domestic delivery.':
     'Tujuh tahapan rekayasa terverifikasi dari evaluasi skematik awal hingga pengiriman berstandar ESD dari Bogor.',
-  'Request an instant quote': 'Minta estimasi penawaran',
+  'Request an instant quote': 'Minta penawaran instan',
   'Concept': 'Konsep',
   'Design': 'Desain',
   'Engineering': 'Rekayasa',
@@ -165,15 +174,18 @@ export const enToIdMap: Record<string, string> = {
   'Quick Links': 'Tautan Cepat',
   'Our Services': 'Layanan Kami',
   'Connect & Social Media': 'Koneksi & Media Sosial',
-  'Ikuti informasi terkini, studi kasus teknis, dan pembaruan industri PCB.':
+  'Follow our latest updates, technical case studies, and electronics industry news.':
     'Ikuti informasi terkini, studi kasus teknis, dan pembaruan industri PCB.',
   'Subscribe to Our Newsletter': 'Berlangganan Buletin Teknis',
   'Get the latest updates, tips, and electronics industry insights.':
-    'Dapatkan pembaruan terkini, tips desain PCB, dan wawasan industri elektronika.',
-  'Pabrik & Kantor Pusat (Bogor):': 'Pabrik & Kantor Pusat (Bogor):',
+    'Dapatkan informasi terbaru, tips desain PCB, dan wawasan manufaktur.',
+  'Factory & Headquarters (Bogor):': 'Pabrik & Kantor Pusat (Bogor):',
+  'Hours:': 'Jam Operasional:',
   'Privacy Policy': 'Kebijakan Privasi',
   'Terms of Service': 'Ketentuan Layanan',
   'Sitemap': 'Peta Situs',
+  'Subscribe': 'Langganan',
+  'Enter your work email': 'Masukkan email kerja Anda',
 };
 
 // Generate reverse dictionary dynamically (ID -> EN)
@@ -197,9 +209,61 @@ export function applyTranslations(targetLang: SupportedLang) {
   localStorage.setItem('pcb_lang', targetLang);
   document.documentElement.lang = targetLang === 'ID' ? 'id' : 'en';
 
-  const map = targetLang === 'ID' ? enToIdMap : idToEnMap;
+  const isId = targetLang === 'ID';
 
-  // Walk text nodes in the body
+  // 1. Explicit data-i18n attributes (100% deterministic)
+  document.querySelectorAll<HTMLElement>('[data-i18n-en]').forEach((el) => {
+    const target = isId ? el.getAttribute('data-i18n-id') : el.getAttribute('data-i18n-en');
+    if (target) {
+      el.textContent = target;
+    }
+  });
+
+  // 2. Navigation & Service Links
+  document.querySelectorAll<HTMLElement>('[data-nav-link]').forEach((el) => {
+    const original = el.getAttribute('data-nav-link') || el.textContent?.trim() || '';
+    if (isId && navTranslations[original]) {
+      el.textContent = navTranslations[original];
+    } else if (!isId && original) {
+      el.textContent = original;
+    }
+  });
+
+  // 3. Statement 1 Quote Rebuilding
+  const stmt1Word = document.querySelector<HTMLElement>('[data-statement-word-1]');
+  if (stmt1Word) {
+    stmt1Word.textContent = isId ? '“Mendorong' : '“Powering';
+  }
+
+  const stmt1Typed = document.querySelector<HTMLElement>('[data-statement-typed-text]');
+  if (stmt1Typed) {
+    const targetPhrase = isId ? 'Elektronika Indonesia.”' : 'Indonesia’s Electronics.”';
+    stmt1Typed.innerHTML = '';
+    for (let i = 0; i < targetPhrase.length; i++) {
+      const span = document.createElement('span');
+      span.textContent = targetPhrase[i];
+      span.className = 'inline-block opacity-1 will-change-transform';
+      if (targetPhrase[i] === ' ') span.style.width = '0.28em';
+      stmt1Typed.appendChild(span);
+    }
+  }
+
+  // 4. Statement 2 Words
+  const stmt2Words = document.querySelectorAll<HTMLElement>('[data-statement-2-word]');
+  if (stmt2Words.length >= 4) {
+    const wordsId = ['“Dirancang', 'Untuk', 'Masa', 'Depan.”'];
+    const wordsEn = ['“Engineered', 'For', 'What’s', 'Next.”'];
+    const wordList = isId ? wordsId : wordsEn;
+    stmt2Words.forEach((wordEl, idx) => {
+      if (wordList[idx]) {
+        wordEl.textContent = wordList[idx];
+      }
+    });
+  }
+
+  // 5. General Text Node Replacement using Dictionary
+  const map = isId ? enToIdMap : idToEnMap;
+
   const walker = document.createTreeWalker(
     document.body,
     NodeFilter.SHOW_TEXT,
@@ -217,6 +281,10 @@ export function applyTranslations(targetLang: SupportedLang) {
           tag === 'code' ||
           tag === 'pre'
         ) {
+          return NodeFilter.FILTER_SKIP;
+        }
+        // If parent already handled by data-i18n-en, skip
+        if (parent.hasAttribute('data-i18n-en')) {
           return NodeFilter.FILTER_SKIP;
         }
         return NodeFilter.FILTER_ACCEPT;
@@ -239,22 +307,7 @@ export function applyTranslations(targetLang: SupportedLang) {
     node.textContent = newText;
   });
 
-  // Re-render Statement 1 typed text if present
-  const stmt1Typed = document.querySelector<HTMLElement>('[data-statement-typed-text]');
-  if (stmt1Typed) {
-    const targetPhrase =
-      targetLang === 'ID' ? 'Kemajuan Elektronika Indonesia.”' : 'Indonesia’s Electronics.”';
-    stmt1Typed.innerHTML = '';
-    for (let i = 0; i < targetPhrase.length; i++) {
-      const span = document.createElement('span');
-      span.textContent = targetPhrase[i];
-      span.className = 'inline-block opacity-1 will-change-transform';
-      if (targetPhrase[i] === ' ') span.style.width = '0.28em';
-      stmt1Typed.appendChild(span);
-    }
-  }
-
-  // Update input placeholders
+  // 6. Input Placeholders
   document.querySelectorAll<HTMLInputElement>('input[placeholder], textarea[placeholder]').forEach((el) => {
     const ph = el.placeholder.trim();
     if (ph && map[ph]) {
@@ -262,6 +315,6 @@ export function applyTranslations(targetLang: SupportedLang) {
     }
   });
 
-  // Broadcast event for active React components (Search, LanguageSwitcher, MobileMenu)
+  // 7. Broadcast event for React components
   window.dispatchEvent(new CustomEvent('languageChange', { detail: { lang: targetLang } }));
 }

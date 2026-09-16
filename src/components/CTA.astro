@@ -27,14 +27,26 @@ const {
       <div data-cta-content class="max-w-xl space-y-3">
         <div class="flex items-center gap-2">
           <span class="w-1.5 h-1.5 bg-brand-400" />
-          <span class="text-[11px] font-mono tracking-widest uppercase text-brand-400 font-semibold">
+          <span
+            data-i18n-en="08 // DIRECT INQUIRY & ENGINEERING SUPPORT"
+            data-i18n-id="08 // KONSULTASI LANGSUNG & DUKUNGAN REKAYASA"
+            class="text-[11px] font-mono tracking-widest uppercase text-brand-400 font-semibold"
+          >
             08 // DIRECT INQUIRY & ENGINEERING SUPPORT
           </span>
         </div>
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold font-display tracking-tight leading-snug text-white">
+        <h2
+          data-i18n-en-html="Let's Build a Smarter, <span class='font-script text-brand-400 font-normal text-[1.12em] inline-block -rotate-1'>More Connected Indonesia</span>"
+          data-i18n-id-html="Mari Bangun Indonesia yang Lebih Cerdas, <span class='font-script text-brand-400 font-normal text-[1.12em] inline-block -rotate-1'>dan Terkoneksi</span>"
+          class="text-2xl sm:text-3xl lg:text-4xl font-bold font-display tracking-tight leading-snug text-white"
+        >
           Let's Build a Smarter, <span class="font-script text-brand-400 font-normal text-[1.12em] inline-block -rotate-1">More Connected Indonesia</span>
         </h2>
-        <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-lg">
+        <p
+          data-i18n-en="Partner with PCB Indonesia for reliable, high-precision PCB engineering and domestic production."
+          data-i18n-id="Bermitra dengan PCB Indonesia untuk rekayasa PCB presisi tinggi, teruji, dan diproduksi langsung di dalam negeri."
+          class="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-lg"
+        >
           {subtitle}
         </p>
       </div>
@@ -45,7 +57,7 @@ const {
           href={primaryBtnHref}
           class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-sm bg-brand-500 hover:bg-brand-600 text-white font-mono text-xs font-semibold uppercase tracking-wider transition-colors whitespace-nowrap min-h-[44px] border border-brand-400"
         >
-          <span>{primaryBtnText}</span>
+          <span data-nav-link={primaryBtnText}>{primaryBtnText}</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -56,7 +68,7 @@ const {
             href={secondaryBtnHref}
             class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-sm bg-transparent hover:bg-white/10 text-white font-mono text-xs uppercase tracking-wider border border-neutral-700 hover:border-neutral-400 transition-colors whitespace-nowrap min-h-[44px]"
           >
-            <span>{secondaryBtnText}</span>
+            <span data-nav-link={secondaryBtnText}>{secondaryBtnText}</span>
           </a>
         )}
       </div>
