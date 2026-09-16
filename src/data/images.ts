@@ -8,13 +8,13 @@ export interface ImageAsset {
 export const images = {
   hero: {
     pcbMain: {
-      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-      alt: "High-density multi-layer green printed circuit board with soldered microchips and gold traces",
+      src: "/images/hero-pcb-main.jpg",
+      alt: "Macro photography of high-precision green multi-layer PCB with ENIG gold contact pads and surface mount components",
       width: 1200,
-      height: 800,
+      height: 900,
     },
     pcbCloseUp: {
-      src: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1000&q=80",
+      src: "/images/hero-pcb-main.jpg",
       alt: "Macro photography of precision surface mount components on PCB substrate",
       width: 1000,
       height: 700,
@@ -22,66 +22,66 @@ export const images = {
   },
   introducing: {
     factoryCleanroom: {
-      src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
-      alt: "Illuminated high-precision printed circuit board architecture with microscopic traces",
+      src: "/images/factory-cleanroom.jpg",
+      alt: "Automated high-tech SMT electronics cleanroom assembly line in Bogor manufacturing facility",
       width: 1200,
-      height: 800,
+      height: 900,
     },
   },
   products: {
     pcbFabrication: {
-      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-      alt: "Stacked multi-layer FR-4 and Rogers high-frequency printed circuit boards",
+      src: "/images/product-pcb-fabrication.jpg",
+      alt: "High-density multi-panel bare PCB fabrication panel with gold ENIG finish and routed breakaway tabs",
       width: 800,
-      height: 500,
+      height: 450,
     },
     pcbAssembly: {
-      src: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
-      alt: "High-speed automated robotic surface mount technology (SMT) pick-and-place assembly line",
+      src: "/images/product-pcb-assembly.jpg",
+      alt: "High-speed automated robotic SMT pick-and-place nozzle placing microchip on circuit board",
       width: 800,
-      height: 500,
+      height: 450,
     },
     pcbDesign: {
-      src: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80",
-      alt: "High-density PCB circuit routing, impedance control traces and CAD layout",
+      src: "/images/product-pcb-design.jpg",
+      alt: "Hardware engineering CAD workstation with 3D multi-layer PCB routing layout and schematic",
       width: 800,
-      height: 500,
+      height: 450,
     },
     prototypeCustom: {
-      src: "https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80",
-      alt: "Rapid turnaround custom prototype printed circuit board panels",
+      src: "/images/product-prototype-custom.jpg",
+      alt: "Custom prototype printed circuit boards in multiple solder mask colors with gold edge fingers",
       width: 800,
-      height: 500,
+      height: 450,
     },
   },
   timeline: {
     concept: {
-      src: "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&w=800&q=80",
-      alt: "System architecture and circuit schematic planning",
+      src: "/images/process-concept.jpg",
+      alt: "System architecture and circuit schematic planning on engineering tablet with components",
     },
     design: {
-      src: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80",
-      alt: "High-speed multi-layer PCB CAD trace layout and differential routing",
+      src: "/images/process-design.jpg",
+      alt: "High-speed multi-layer PCB CAD trace layout and differential impedance routing on screen",
     },
     engineering: {
-      src: "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80",
-      alt: "DFM verification and multi-layer copper stackup calculation",
+      src: "/images/process-engineering.jpg",
+      alt: "DFM verification, 8-layer copper stackup calculation, and impedance simulation graph",
     },
     prototype: {
-      src: "https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80",
-      alt: "24-72 hour rapid turn prototype board fabrication",
+      src: "/images/process-prototype.jpg",
+      alt: "High precision CNC PCB prototyping mill carving fine copper circuit tracks on laminate",
     },
     testing: {
       src: "/images/pcb-aoi-inspection.jpg",
       alt: "Automated 3D optical inspection (AOI) and radiographic X-ray testing machine in cleanroom",
     },
     production: {
-      src: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
-      alt: "High-volume automated cleanroom SMT reflow soldering assembly",
+      src: "/images/process-production.jpg",
+      alt: "High-volume automated cleanroom SMT line with reflow soldering oven",
     },
     delivery: {
-      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-      alt: "ESD vacuum packaged and quality-certified finished PCB shipments",
+      src: "/images/process-delivery.jpg",
+      alt: "ESD moisture barrier vacuum sealed PCB batches with QC PASS certification stickers",
     },
   },
   industries: {
